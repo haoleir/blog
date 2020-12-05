@@ -101,7 +101,21 @@ function getStyle(obj, arr) {
    * margin-right 负值，右侧元素向左移动，自身不受影响（视觉上感觉自身宽度在缩小，导致相邻右侧元素左移）；
    * margin-bottom 负值，下方元素向上移动，自身不受影响（视觉上感觉自身高度在缩小，导致相邻右侧元素左移）；
 
-5. 圣杯布局
+5. BFC形成条件和应用
+
+   1. 形成条件
+      + 浮动元素，float 除 none 以外的值； 
+      + 定位元素，position（absolute，fixed）； 
+      + display 为以下其中之一的值 inline-block，table-cell，table-caption； 
+      + overflow 除了 visible 以外的值（hidden，auto，scroll）；
+   2. BFC的特性
+      + 内部的Box会在垂直方向上一个接一个的放置。
+      + 垂直方向上的距离由margin决定
+      + bfc的区域不会与float的元素区域重叠。
+      + 计算bfc的高度时，浮动元素也参与计算
+      + bfc就是页面上的一个独立容器，容器里面的子元素不会影响外面元素。
+
+6. 圣杯布局
 
    ```html
    <!DOCTYPE html>
@@ -170,7 +184,7 @@ function getStyle(obj, arr) {
    </html>
    ```
 
-6. 双飞翼布局
+7. 双飞翼布局
 
    ```html
    <!DOCTYPE html>
@@ -229,7 +243,7 @@ function getStyle(obj, arr) {
    </html>
    ```
 
-7. flex 布局
+8. flex 布局
 
    ```html
    <!DOCTYPE html>
@@ -276,7 +290,7 @@ function getStyle(obj, arr) {
    </html>
    ```
 
-8. 响应式布局-media query
+9. 响应式布局-media query
 
    ```html
    <!DOCTYPE html>
