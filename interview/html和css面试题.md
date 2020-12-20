@@ -9,13 +9,15 @@
 
    2. element.currentStyle 属性；
 
-   3. var el = document.getElementById('el')  console.log(window.getComputedStyle(element).getPropertyValue('width'))
+   3. var el = document.getElementById('el') ;
 
-      jQuery的CSS()方法就是用此方法的；
+      console.log(window.getComputedStyle(element).getPropertyValue('width')); // jQuery的CSS()方法就是用此方法的；
 
    4. element.getBoundingClientRect()方法
 
-      var el = document.getElementById('el') el.getBoundingClientRect().width // 获取宽度
+      var el = document.getElementById('el');
+   
+      el.getBoundingClientRect().width // 获取宽度
 
 ```javascript
 /*
@@ -335,4 +337,8 @@ function getStyle(obj, arr) {
    </html>
    ```
 
-   
+10. flex布局？
+
+    1. [语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
+    2. [实例篇](http://www.ruanyifeng.com/blog/2015/07/flex-examples.html)
+
