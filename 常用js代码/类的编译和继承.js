@@ -1,6 +1,7 @@
 // class Parent {
 // 	constructor() {
 // 		this.name = 'parent';
+//    //return {}
 // 	}
 // 	static b() {
 // 		return 2;
@@ -13,7 +14,26 @@
 // let p = new Parent();
 // console.log(p);
 
-/* =============== 类的编译 =================== */
+// class Child extends Parent {
+// 	constructor() {
+// 		super();
+// 		this.age = 9;
+//   }
+//   smoking(){
+//     console.log('smoking')
+//   }
+// }
+
+// let child = new Child();
+// console.log(child);
+
+//1.类只能new
+//2.类可以继承公有私有和静态方法
+//3.父类的构造函数中返回了一个引用类型，子类会把这个引用类型作为子类的this
+
+
+
+/* =============== 1.类的编译 =================== */
 
 /**
  * 类的调用检测 检测实例是不是new出来的
@@ -59,8 +79,9 @@ let Parent = (function() {
 	function P() {
 		_classCallCheck(this, P);
 		this.name = 'parent';
+		return {};
 	}
-  //属性描述器
+	//属性描述器
 	_createClass(
 		P,
 		[
@@ -83,7 +104,35 @@ let Parent = (function() {
 	return P;
 })();
 
-let p = new Parent(); //TypeError: Class constructor XXX cannot be invoked without 'new'
-console.log(p.name);
-p.eat();
-console.log(Parent.b());
+// let p = new Parent(); //TypeError: Class constructor XXX cannot be invoked without 'new'
+// console.log(p.name);
+// p.eat();
+// console.log(Parent.b());
+
+/* =============== 2.类的继承 =================== */
+
+function _inherits(subClass, superClass) {
+	// 继承父类的共有属性
+	subClass.prototype = Object.create(superClass.prototype, { constructor: { value: subClass } });
+	// 继承父类的静态方法
+	Object.setPrototypeOf(subClass, superClass);
+}
+let Child = (function(Parent) {
+	//先实现继承父类的公有属性和静态方法
+	_inherits(C, Parent);
+	function C() {
+		_classCallCheck(this, C);
+		let obj = Parent.call(this);
+		let that = this;
+		if (typeof obj === 'object') {
+			that = obj;
+		}
+		that.age = 9; // 解决了父类返回引用类型的问题
+		return that;
+	}
+	return C;
+})(Parent);
+
+let child = new Child();
+console.log(child);
+console.log(Child.b());
