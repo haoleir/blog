@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<title>跨域-postMessage</title>
+		<style>
+			
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			我是A页面！
+			<iframe id='iframe' src="http://127.0.0.1:1002/test.html" frameborder="0" style="display: none;"></iframe id='iframe'>
+		</div>
+		<script type="text/javascript">
+			iframe.onload=function(){
+				iframe.contentWindow.postMessage('珠峰培训','http://127.0.0.1:1002/')
+			}
+
+			window.onmessage=function(ev){
+				console.log(ev.data);
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>socket.io</title>
+    <style>
+      .container {
+        padding: 10px;
+      }
+      .title {
+        color: red;
+        margin-top: 15px;
+      }
+      .content {
+        width: 300px;
+        height: 100px;
+        margin-top: 5px;
+        padding: 10px;
+        border: 1px solid #cccccc;
+        word-wrap: break-word;
+        word-break: normal;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div>user input：<input type="text" /></div>
+      <div class="title">data from server:</div>
+      <div class="content"></div>
+    </div>
+
+    <script src="./lib/socket.io.js"></script>
+    <script>
+      var socket = io('http://127.0.0.1:3000');
+
+      socket.on('connect', function() {
+        socket.on('message', function(msg) {
+          console.log('data from server: ---> ' + msg);
+          var box = document.querySelector('.content');
+          box.innerHTML = msg;
+        });
+
+        socket.on('disconnect', function() {
+          console.log('Server socket has closed.');
+        });
+      });
+
+      document.getElementsByTagName('input')[0].oninput = function() {
+        socket.send(this.value);
+      };
+    </script>
+  </body>
+</html>

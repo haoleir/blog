@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<title>跨域-postMessage</title>
+		<style>
+			
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			我是B页面！
+		</div>
+		<script type="text/javascript">
+			window.onmessage=function(ev){
+				if (ev.origin==='http://127.0.0.1:1001') {
+					ev.source.postMessage(ev.data+'@@@',ev.origin)
+				}
+			}
+		</script>
+	</body>
+</html>

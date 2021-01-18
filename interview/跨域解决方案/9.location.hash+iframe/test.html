@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>vue源码</title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <iframe id="iframe" src="http://127.0.0.1:1001/proxy.html" frameborder="0" style="display: none;"></iframe>
+    </div>
+
+    <script>
+      window.onhashchange = function() {
+        // iframe.src = 'http://127.0.0.1:1001/proxy.html'+location.hash;
+        const hash = '#name=珠峰培训&age=10';
+        iframe.src = 'http://127.0.0.1:1001/proxy.html' + hash;
+      };
+    </script>
+  </body>
+</html>
