@@ -60,3 +60,22 @@
       beforeEnter
 
 8. 基于vue设计一个购物车（组件结构，vue state数据结构）
+
+9. 谈谈对组件化的理解？
+
+   [Vue之组件化理解](https://blog.csdn.net/qq_35387720/article/details/105523595)
+
+   - 数据驱动视图
+   - MVVM
+
+10. 用Object.defineProperty实现响应式的缺点？
+
+    - 深度舰艇，需要递归到底，一次性计算量大
+    - 无法监听新增属性/删除属性（Vue.set Vue.delete）
+    - 无法原生监听数组变化，需要特殊处理
+
+11. 谈谈vdom的理解
+
+    - 用js模拟DOM结构（vnode）
+    - 新旧vnode对比，得出最小的更新范围，最后更新DOM
+    - 数据驱动视图的模式下，可以有效控制DOM操作
