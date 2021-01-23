@@ -39,6 +39,15 @@
 
 5. 描述组件渲染和更新的过程
 
+   1. 渲染过程：
+      + 解析模板为render函数(或在开发环境已完成)
+      + 触发响应式，监听data属性的getter的依赖收集，也即是往dep里面添加watcher的过程
+      + 执行render函数，生成vnode，patch
+   2. 更新过程:
+      - 修改data，setter(必需是初始渲染已经依赖过的)调用Dep.notify()，将通知它内部的所有的Watcher对象进行视图更新
+      - 重新执行render函数，生成newVnode
+      - 然后就是patch的过程(diff算法)
+
 6. 双向数据绑定v-model的实现原理
 
 7. vue 路由守卫分几类？
