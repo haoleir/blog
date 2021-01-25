@@ -7,6 +7,8 @@
 
 2. 为何v-for中要用key
 
+   [VUE中演示v-for为什么要加key](https://www.jianshu.com/p/4bd5e745ce95)
+
 3. 描述vue组建生命周期（有父子组件的情况）
 
    - 加载渲染过程
@@ -52,7 +54,7 @@
 
 7. vue 路由守卫分几类？
 
-   1.  路由守卫（导航守卫）：
+   1. 路由守卫（导航守卫）：
 
       router.beforeEach：全局前置守卫。
       router.beforeResolve：全局解析守卫。
@@ -96,3 +98,57 @@
       1. 只比较同一层级，不跨级比较
       2. tag（元素标签）不相同，则直接删掉重建，不再深度比较
       3. tag和key（例如v-for中的key），两者都相同，则认为是相同节点，不再深度比较
+
+13. [浅谈vue-router原理](https://www.jianshu.com/p/4295aec31302)
+
+14. vuex中mutation和action的详细区别
+
+    ```javascript
+    
+    const store = new Vuex.Store({
+      state: {
+        count: 0
+      },
+      mutations: {
+        increment (state) {
+          state.count++
+        }
+      },
+      actions: {
+        increment (context) {
+          context.commit('increment')
+        }
+      }
+    })
+    
+    /*
+    
+    1、流程顺序
+    
+    “相应视图—>修改State”拆分成两部分，视图触发Action，Action再触发Mutation。
+    
+    2、角色定位
+    
+    基于流程顺序，二者扮演不同的角色。
+    
+    Mutation：专注于修改State，理论上是修改State的唯一途径。
+    
+    Action：业务代码、异步请求。
+    
+    3、限制
+    
+    角色不同，二者有不同的限制。
+    
+    Mutation：必须同步执行。
+    
+    Action：可以异步，但不能直接操作State。
+    
+    */
+    
+    ```
+
+      
+
+​    
+
+​    
