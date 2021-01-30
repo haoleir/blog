@@ -11,6 +11,10 @@
 
    > key的作用是更新组件时判断两个节点是否相同。相同就复用，不相同就删除旧的创建新的。在渲染简单的无状态组件时，如果不添加key组件默认都是就地复用，不会删除添加节点，只是改变列表项中的文本值，要知道节点操作是十分耗费性能的。而添加了key之后，当对比内容不一致时，就会认为是两个节点，会先删除掉旧节点，然后添加新节点。
 
+   - 必须用key，且不能是 index 和 random
+   - diff 算法中通过 tag 和 key 来判断，是否是 sameNode（原理）
+   - 减少渲染次数，提升渲染性能（效果）
+
 3. 描述vue组建生命周期（有父子组件的情况）
 
    - 加载渲染过程
@@ -25,16 +29,10 @@
    　　父beforeUpdate->子beforeUpdate->子updated->父updated
    ```
 
-   - 父组件更新过程
+   - 销毁子组件过程
 
    ```
-   　　父beforeUpdate->父updated
-   ```
-
-   - 销毁过程
-
-   ```
-   　　父beforeDestroy->子beforeDestroy->子destroyed->父destroyed
+   　　父beforeUpdate->子beforeDestroy->子destroyed->父updated
    ```
 
    ​	[Vue父子组件生命周期执行顺序及钩子函数的个人理解](https://www.cnblogs.com/yuliangbin/p/9348156.html)
@@ -42,6 +40,22 @@
 4. vue组件如何通讯
 
 5. 描述组件渲染和更新的过程
+
+   ```
+   //初次渲染
+   1.initState ->进行双向绑定
+   2.$mount->将template编译成render函数
+   3.执行渲染 触发属性get函数,将渲染watcher 收集到dep中
+   4.调用render 函数 生成vnode
+   5.patch(elm,vnode)
+   
+   //更新
+   1.修改data 触发属性set
+   2.然后dep.notify() ->watch.update 派发更新
+   3.触发render watcher 的render回调
+   4.生成新的vnode
+   5.patch(oldVnode,newVnode)
+   ```
 
    1. 渲染过程：
       + 解析模板为render函数(或在开发环境已完成)

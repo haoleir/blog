@@ -19,11 +19,11 @@
 
     <!-- <FormDemo/> -->
 
-    <!-- <ComponentDemo/> -->
+    <ComponentDemo/>
 
     <!-- <AdvancedUse/> -->
 
-    <VuexDemo/>
+    <!-- <VuexDemo/> -->
 
     <!-- <CartDemo/> -->
   </div>
@@ -46,11 +46,11 @@
 
 // import FormDemo from './components//FormDemo'
 
-// import ComponentDemo from './components/ComponentsDemo/index'
+import ComponentDemo from './components/ComponentsDemo/index'
 
 // import AdvancedUse from './components/AdvancedUse/index'
 
-import VuexDemo from './components/BaseUse/VuexDemo'
+// import VuexDemo from './components/BaseUse/VuexDemo'
 
 // import CartDemo from './components/Cart/index'
 
@@ -66,9 +66,9 @@ export default {
     // ListDemo
     // EventDemo
     // FormDemo
-    // ComponentDemo
+    ComponentDemo
     // AdvancedUse
-    VuexDemo
+    // VuexDemo
     // CartDemo
   }
 }

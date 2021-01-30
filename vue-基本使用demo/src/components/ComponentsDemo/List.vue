@@ -39,33 +39,37 @@ export default {
         }
     },
     beforeCreate(){
-        console.log('list beforeCreate')
+        console.log('子组件 beforeCreate')
     },
     created() {
         // eslint-disable-next-line
-        console.log('list created')
+        console.log('子组件 created')
     },
     beforeMount(){
-        console.log('list beforeMount')
+        console.log('子组件 beforeMount')
     },
     mounted() {
         // eslint-disable-next-line
-        console.log('list mounted')
+        console.log('子组件 mounted')
 
         // 绑定自定义事件
         event.$on('onAddTitle', this.addTitleHandler)
     },
     beforeUpdate() {
         // eslint-disable-next-line
-        console.log('list before update')
+        console.log('子组件 beforeUpdate')
     },
     updated() {
         // eslint-disable-next-line
-        console.log('list updated')
+        console.log('子组件 updated')
     },
     beforeDestroy() {
         // 及时销毁，否则可能造成内存泄露
+        console.log('子组件 beforeDestroy')
         event.$off('onAddTitle', this.addTitleHandler)
+    },
+    destroyed() {
+        console.log('子组件 destroyed')
     }
 }
 </script>

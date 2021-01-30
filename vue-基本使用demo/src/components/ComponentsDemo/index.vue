@@ -1,8 +1,13 @@
 <template>
     <div>
         <Input @add="addHandler"/>
-        <List :list="list" @delete="deleteHandler"/>
+        <List v-if="is" :list="list" @delete="deleteHandler"/>
+        <br/>
+        <div>
+            <button @click="deleteChildComponent">销魂子组件</button>
+        </div>
     </div>
+    
 </template>
 
 <script>
@@ -16,6 +21,7 @@ export default {
     },
     data() {
         return {
+            is: true,
             list: [
                 {
                     id: 'id-1',
@@ -37,29 +43,32 @@ export default {
         },
         deleteHandler(id) {
             this.list = this.list.filter(item => item.id !== id)
+        },
+        deleteChildComponent(){
+            this.is=false
         }
     },
     beforeCreate(){
-        console.log('index beforeCreate')
+        console.log('父组件 beforeCreate')
     },
     created() {
         // eslint-disable-next-line
-        console.log('index created')
+        console.log('父组件 created')
     },
     beforeMount(){
-        console.log('index beforeMount')
+        console.log('父组件 beforeMount')
     },
     mounted() {
         // eslint-disable-next-line
-        console.log('index mounted')
+        console.log('父组件 mounted')
     },
     beforeUpdate() {
         // eslint-disable-next-line
-        console.log('index before update')
+        console.log('父组件 beforeUpdate')
     },
     updated() {
         // eslint-disable-next-line
-        console.log('index updated')
+        console.log('父组件 updated')
     },
 }
 </script>
