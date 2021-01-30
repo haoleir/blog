@@ -37,9 +37,17 @@
 
    ​	[Vue父子组件生命周期执行顺序及钩子函数的个人理解](https://www.cnblogs.com/yuliangbin/p/9348156.html)
 
-4. vue组件如何通讯
+4. vue组件如何通讯(常见)
 
-5. 描述组件渲染和更新的过程
+   - 父子组件 props 和 this.$emit
+   - 自定义事件 event.$on  event.$emit 和 event.$off
+   - vuex
+
+5. [描述组件渲染和更新的过程](https://www.cnblogs.com/ming1025/p/13091678.html)
+
+   
+
+   ![img](https://img2020.cnblogs.com/blog/979149/202006/979149-20200611101848175-251562137.png)
 
    ```
    //初次渲染
@@ -67,6 +75,10 @@
       - 然后就是patch的过程(diff算法)
 
 6. 双向数据绑定v-model的实现原理
+
+   - input 元素的 value = this.name
+   - 绑定 input 事件 this.name = $event.target.value
+   - data 更新触发 re-render
 
 7. vue 路由守卫分几类？
 
@@ -163,7 +175,16 @@
     
     ```
 
-      
+   15. 谈谈对 MVVM 的理解
+
+        MVVM分为Model、View、ViewMode三者。
+
+        - Model：代表数据模型，数据和业务逻辑都在Model层中定义；
+        - View：代表UI视图，负责数据的展示；
+        - ViewModel：负责监听Model中数据的改变并且控制视图的更新，处理用户交互操作；
+
+           Model和View并无直接关联，而是通过ViewModel来进行联系的，Model和ViewModel之间有着双向数据绑定的联系，因此当Model中的数据改变时会触发View层的刷新，View中由于用户交互操作而改变的数据也会在Model中同步。
+        这种模式实现了Model和View的数据自动同步，因此开发者只需要专注对数据的维护操作即可，而不需要自己操作dom。
 
 ​    
 
