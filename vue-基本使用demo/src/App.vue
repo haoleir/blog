@@ -19,7 +19,11 @@
 
     <!-- <FormDemo/> -->
 
-    <ComponentDemo/>
+    <div>
+      <ComponentDemo v-if="is"/>
+      <br/>
+      <button @click="is=false">销毁父子组件</button>
+    </div>
 
     <!-- <AdvancedUse/> -->
 
@@ -46,7 +50,7 @@
 
 // import FormDemo from './components//FormDemo'
 
-import ComponentDemo from './components/ComponentsDemo/index'
+import ComponentDemo from './components/ComponentsDemo/index';
 
 // import AdvancedUse from './components/AdvancedUse/index'
 
@@ -70,8 +74,13 @@ export default {
     // AdvancedUse
     // VuexDemo
     // CartDemo
+  },
+  data() {
+    return {
+      is: true
+    };
   }
-}
+};
 </script>
 
 <style>
