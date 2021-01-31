@@ -17,7 +17,7 @@ export default {
   methods: {
     addTitle() {
       // 调用父组件的事件
-      // this.$emit('add', this.title)
+      this.$emit('add', this.title)
 
       // 调用自定义事件
       event.$emit('onAddTitle', this.title);

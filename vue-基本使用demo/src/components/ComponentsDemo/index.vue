@@ -4,7 +4,7 @@
         <List v-if="is" :list="list" @delete="deleteHandler"/>
         <br/>
         <div>
-            <button @click="deleteChildComponent">销魂子组件</button>
+            <button @click="deleteChildComponent">销毁子组件</button>
         </div>
     </div>
     
