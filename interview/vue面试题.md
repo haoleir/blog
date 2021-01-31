@@ -127,9 +127,11 @@
       2. tag（元素标签）不相同，则直接删掉重建，不再深度比较
       3. tag和key（例如v-for中的key），两者都相同，则认为是相同节点，不再深度比较
 
-13. [浅谈vue-router原理](https://www.jianshu.com/p/4295aec31302)
+13. [详解vue的diff算法](https://www.cnblogs.com/wind-lanyan/p/9061684.html)
 
-14. vuex中mutation和action的详细区别
+14. [浅谈vue-router原理](https://www.jianshu.com/p/4295aec31302)
+
+15. vuex中mutation和action的详细区别
 
     ```javascript
     
@@ -175,16 +177,36 @@
     
     ```
 
-   15. 谈谈对 MVVM 的理解
+   16. 谈谈对 MVVM 的理解
 
         MVVM分为Model、View、ViewMode三者。
 
         - Model：代表数据模型，数据和业务逻辑都在Model层中定义；
+
         - View：代表UI视图，负责数据的展示；
+
         - ViewModel：负责监听Model中数据的改变并且控制视图的更新，处理用户交互操作；
 
            Model和View并无直接关联，而是通过ViewModel来进行联系的，Model和ViewModel之间有着双向数据绑定的联系，因此当Model中的数据改变时会触发View层的刷新，View中由于用户交互操作而改变的数据也会在Model中同步。
         这种模式实现了Model和View的数据自动同步，因此开发者只需要专注对数据的维护操作即可，而不需要自己操作dom。
+
+17. vue常见性能优化有哪些？
+
+    - 合理使用 v-show 和 v -if
+    - 合理使用 computed
+    - v-for 时 加 key，以及避免和 v-if 同时使用
+    - 自定义事件 、DOM事件及时销毁
+    - 合理使用异步组件
+    - 合理使用 keep-alive
+    - data 层架不要太深
+    - 使用 v-loader 在开发环境做模版编译（预编译）
+    - webpack 层面的一些优化
+    - 前端通用的性能优化，如图片懒加载
+    - 使用 SSR
+
+18. [谈谈对v-bind的理解](https://www.jianshu.com/p/98dfa4c6389c)
+
+    
 
 ​    
 
