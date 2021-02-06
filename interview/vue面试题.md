@@ -34,14 +34,22 @@
    ```
    　　父beforeUpdate->子beforeDestroy->子destroyed->父updated
    ```
+   - 销毁父子组件过程
+
+   ```
+   　　父beforeDestroy->子beforeDestroy->子destroyed->父destroyed
+   ```
 
    ​	[Vue父子组件生命周期执行顺序及钩子函数的个人理解](https://www.cnblogs.com/yuliangbin/p/9348156.html)
 
 4. vue组件如何通讯(常见)
 
-   - 父子组件 props 和 this.$emit
-   - 自定义事件 event.$on  event.$emit 和 event.$off
-   - vuex
+   - 父子间通信  父->子通过`props`、子-> 父`$on、$emit`
+   - 获取父子组件实例的方式`$parent、$children`
+   - 在父组件中提供数据子组件进行消费 `Provide、inject`
+   - `Ref`获取实例的方式调用组件的属性或者方法
+   - `Event Bus` 实现跨组件通信
+   - `Vuex `状态管理实现通信
 
 5. [描述组件渲染和更新的过程](https://www.cnblogs.com/ming1025/p/13091678.html)
 
