@@ -111,7 +111,58 @@ console.log(child.x);
 child.getX();
 ```
 
+### 10. 请实现 (5).add(3).minus(2) 并输出 6
+
+```javascript
+(function() {
+  function check(n) {
+    n = Number(n);
+    return isNaN(n) ? 0 : n;
+  }
+
+  function add(n) {
+    check(n);
+    return this + n;
+  }
+  function minus(n) {
+    check(n);
+    return this - n;
+  }
+
+  ['add', 'minus'].forEach(item => {
+    Number.prototype[item] = eval(item);
+  });
+})();
+
+console.log((5).add(3).minus(2));
+```
+
+### 11. 箭头函数和普通函数的区别？
+
++ 箭头函数语法上比普通函数更加简洁（ES6中每一种函数都可以使用形参赋默认值和剩余运算符）
++ 2.箭头函数没有自己的THIS，它的THIS是继承函数所处上下文中的THIS （使用CALL/APPY等任何方式都无法改变THIS的指向）
++ 3.箭头函数中没有ARGUMENTS （类数组） ，只能基于...ARG获取传递的参数集合（数组）
++ 4.箭头函数不能被new执行（因为：箭头函数没有this也没有prototype)
+
+### 12. 手写实现JQuery中的each方法
+
+```javascript
+function each(arr, callback) {
+  for (let i = 0; i < arr.length; i++) {
+    let flag = callback.call(arr, arr[i], i);
+    if (flag === false) {
+      console.log(arr[i])
+      break;
+    }
+  }
+}
+
+each([10, 20, 30, 40], function(item, index) {
+  if (index > 1) {
+    return false;
+  }
+});
+```
 
 
-​	
 
