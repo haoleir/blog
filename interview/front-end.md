@@ -57,7 +57,7 @@ test()
 
 - JS中的面向对象，和其它编程语言还是有略微不同的， Js中类和实例是基于原型和原型链机制来处理的；而且Js中关于类的重载、重写、继承也和其它语言不太一样
 
-### 7. js原型继承
+### 7. js中的原型继承
 
 1. 让父类中的属性和方法在子类实例的原型链上
 
@@ -68,3 +68,50 @@ test()
    - 不像其他语言中的继承一样（其它语言的继承一般是拷贝继承，也就是子类继承父类，会把父类中的属性和方法拷贝一份到子类中，供子类的实例调取使用） ，它是把父类的原型放到子类实例的原型链上，实例想调取这些方法，是基于—proto—原型链查找机制完成的；
    - 子类可以重写父类上的方法（这样会导致父类其它的实例也受到影响）；
    - 父类中私有或者公有的属性方法，最后都会变为子类中公有的属性和方法。
+
+### 8. js中的call或apply继承
+
+- CHILD方法中把PARENT当做普通函数执行，让PARENT中的THIS指向CHILD的实例，相当于给CHILD的实例设置了很多私有的属性或者方法
+
+- 只能继承父类私有的属性或者方法（因为是把PARENT当做普通函数执行，和其原型上的属性和方法没有关系）
+- 父类私有的变为子类私有的
+
+### 9. js中的寄生组合继承
+
+​	call继承 +  Object.create(Parent.prototype)
+
+```javascript
+function Parent(x) {
+  this.x = x;
+}
+
+Parent.prototype.getX = function() {
+  console.log(this.x);
+  return this.x;
+};
+
+function Child(y) {
+  Parent.call(this, 'parent'); //执行父类构造函数，把this传入，相当于继承父类的私有属性或方法
+  this.y = y;
+}
+
+Child.prototype = Object.create(Parent.prototype); //继承父类的公有属性或方法
+
+Child.prototype.getY = function() {
+  console.log(this.y);
+  return this.y;
+};
+
+let child = new Child('child');
+
+console.log(child.y);
+child.getY();
+
+console.log(child.x);
+child.getX();
+```
+
+
+
+​	
+
