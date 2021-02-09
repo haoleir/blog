@@ -164,5 +164,21 @@ each([10, 20, 30, 40], function(item, index) {
 });
 ```
 
+### 13. git工作流程？
 
+1. fork我的项目
+
+2. git clone https://github.com/你自己的名字/node201509_homework.git
+
+3. cd node201509_homework
+
+4. 添加你的新的文件
+
+5. git add -A
+
+6. git commit -m "提交xx第一个练习"
+
+7. git push origin master
+8. 发起一个pullrequest
+9. 由源仓库作者合并pullrequest
 
