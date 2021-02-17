@@ -183,7 +183,7 @@ each([10, 20, 30, 40], function(item, index) {
 let str = 'zhufengpeixun2019zhufengpeixun2020@2021';
 let reg = /\d+/g;
 console.log(str.match(reg));
-~(function execAll(str) {
+~(function (str) {
   function execAll(str) {
     if (!this.global) {
       return this.exec(str);
@@ -305,5 +305,45 @@ if (obj[res[0]] !== max) {
 }
 
 console.log(`出现次数最多的字母为：${res}，次数为：${max}`);
+```
+
+### 16. 时间字符串的格式化处理
+
+```javascript
+~(function() {
+  /**
+   * formatTime: 时间字符串的格式化处理
+   *  @params
+   *    template:[string] 我们最后期望获取日期格式的模版
+   *    模版规则：{0}->年 {1~5}->月日时分秒
+   *  @return
+   *    [string]格式化后的时间字符串
+   * by zhufengpeixun on 2021/01/17
+   */
+  function formatTime(template = '{0}年{1}月{2}日 {3}时{4}分{5}秒') {
+    let timeAry = this.match(/\d+/g);
+    return template.replace(/\{(\d+)\}/g, (...[, $1]) => {
+      let time = timeAry[$1] || '00';
+      time.length < 2 ? (time = '0' + time) : null;
+      return time;
+    });
+  }
+  /*扩展到String。prototype上 */
+  ['formatTime'].forEach(item => {
+    String.prototype[item] = eval(item);
+  });
+})();
+
+let time = '2019-08-13 15:3:56';
+console.log(time.formatTime()); //=> 2019年08月13日 15时03分56秒
+
+console.log(time.formatTime('{0}年{1}月{2}日')); //=>2019年08月13日
+console.log(time.formatTime('{1}/{2} {3}:{4}:{5}')); //=>08/13 15:03:56秒
+
+time = '2019/08/13';
+console.log(time.formatTime()); //=> 2019年08月13日 00时00分00秒
+
+console.log(time.formatTime('{0}年{1}月{2}日')); //=> 2019年08月13日
+console.log(time.formatTime('{1}/{2} {3}:{4}:{5}')); //=> 08/13 00:00:00
 ```
 
