@@ -46,8 +46,9 @@ export default {
       this.num = this.num + val;
     },
     openPlays(event) {
-      console.log(event.target); // 事件在哪个元素上触发
-      console.log(event.currentTarget); // 事件在哪个元素上绑定
+      //点击页面上的<i class="iconfont"></i>， 就会看到以下二者不同
+      console.log('event.target: ',event.target); //=> <i class="iconfont"></i> 事件在哪个元素上触发
+      console.log('event.currentTarget: ',event.currentTarget); //=> <a @click="openPlays($event)" class="openplays-btn">...</a> 事件在哪个元素上绑定
 
       // 从上面的结果可以看出当使用currentTarget时，不管你点击的是a或者a之中的任何元素，其获取到的对象都为绑定事件的a；
       //当使用target时，如果你点击到a元素则传a元素，如果点击到a之中的某个子级元素则传a之中的某个元素。

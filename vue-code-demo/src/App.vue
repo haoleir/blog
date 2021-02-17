@@ -15,15 +15,15 @@
 
     <!-- <ListDemo/> -->
 
-    <!-- <EventDemo/> -->
+    <EventDemo/>
 
     <!-- <FormDemo/> -->
 
-    <div>
+    <!-- <div>
       <ComponentDemo v-if="is"/>
       <br/>
       <button @click="is=false">销毁父子组件</button>
-    </div>
+    </div> -->
 
     <!-- <AdvancedUse/> -->
 
@@ -46,11 +46,11 @@
 
 // import ListDemo from './components/BaseUse/ListDemo'
 
-// import EventDemo from './components/BaseUse/EventDemo'
+import EventDemo from './components/BaseUse/EventDemo'
 
 // import FormDemo from './components//FormDemo'
 
-import ComponentDemo from './components/ComponentsDemo/index';
+// import ComponentDemo from './components/ComponentsDemo/index';
 
 // import AdvancedUse from './components/AdvancedUse/index'
 
@@ -68,9 +68,9 @@ export default {
     // ClassDemo
     // ConditionDemo
     // ListDemo
-    // EventDemo
+    EventDemo
     // FormDemo
-    ComponentDemo
+    // ComponentDemo
     // AdvancedUse
     // VuexDemo
     // CartDemo

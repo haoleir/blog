@@ -20,14 +20,14 @@ class ConditionDemo extends React.Component {
         // }
 
         // // 三元运算符
-        // return <div>
-        //     { this.state.theme === 'black' ? blackBtn : whiteBtn }
-        // </div>
+        return <div>
+            { this.state.theme === 'black' ? blackBtn : whiteBtn }
+        </div>
 
         // &&
-        return <div>
-            { this.state.theme === 'black' && blackBtn }
-        </div>
+        // return <div>
+        //     { this.state.theme === 'black' && blackBtn }
+        // </div>
     }
 }
 
