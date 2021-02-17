@@ -202,3 +202,108 @@ console.log(str.match(reg));
 console.log(reg.execAll(str));
 ```
 
+### 15. 获取一个字符串中出现次数最多的字母
+
+```javascript
+// 获取一个字符串中出现次数最多的字母
+
+let str = 'zhufengpeixunzhoulaoshi';
+
+/**
+ * 第一种方法：去重思维
+ */
+// let max = 1,
+//   res = [],
+//   obj = {};
+// [].forEach.call(str, char => {
+//   if (typeof obj[char] !== 'undefined') {
+//     obj[char] += 1;
+//     if (obj[char] > max) {
+//       max = obj[char];
+//     }
+//     return;
+//   }
+//   obj[char] = 1;
+// });
+// res = Object.keys(obj)
+//   .filter(k => obj[k] === max);
+// console.log(`出现次数最多的字母为：${res}，次数为：${max}`);
+
+/**
+ * 第二种方法：排序思维
+ */
+// str = str
+//   .split('')
+//   .sort((a, b) => a.localeCompare(b))
+//   .join('');
+// let reg = /([a-zA-Z])\1+/g;
+// let ary = str.match(reg).sort((a, b) => b.length - a.length);
+
+// let max = ary[0].length;
+// let res = ary
+//   .filter(i => i.length === max)
+//   .map(i => i[0]);
+
+// console.log(`出现次数最多的字母为：${res}，次数为：${max}`);
+
+/**
+ * 第三种方法：动态正则匹配
+ */
+
+// let max = 0,
+//   res = [],
+//   flag = false;
+
+// str = str
+//   .split('')
+//   .sort((a, b) => a.localeCompare(b))
+//   .join('');
+
+// for (let i = str.length; i > 0; i--) {
+//   let reg = new RegExp('([a-zA-Z])\\1{' + (i - 1) + '}', 'g');
+//   str.replace(reg, (content, $1) => {
+//     max = i;
+//     res.push($1);
+//     flag = true;
+//   });
+//   if (flag) {
+//     break;
+//   }
+// }
+// console.log(`出现次数最多的字母为：${res}，次数为：${max}`);
+
+/**
+ * 第四种方法：动态删字母
+ */
+
+let max = 0,
+  count = 0,
+  obj = {},
+  res = [],
+  reg,
+  oldLen,
+  letter,
+  newLen;
+
+while (str !== '') {
+  oldLen = str.length;
+  letter = str.substr(0, 1);
+  reg = new RegExp(letter, 'g');
+  str = str.replace(reg, '');
+  newLen = str.length;
+  count = oldLen - newLen;
+  if (count >= max) {
+    obj[letter] = count;
+    max = count;
+    res.push(letter);
+  }
+}
+
+//由于第一项总会添加进res中，所以要做检验
+if (obj[res[0]] !== max) {
+  res.shift();
+}
+
+console.log(`出现次数最多的字母为：${res}，次数为：${max}`);
+```
+
