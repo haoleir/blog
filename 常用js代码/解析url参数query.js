@@ -20,15 +20,28 @@
 // console.log( query('b') )
 
 // 3.正则
-// function queryUrlParams(url) {
-// 	let result = {},
-// 		reg1 = /([^?&=#]+)=([^?&=#]*)/g,
-// 		reg2 = /#([^?&=#]+)/g;
+// ~(function() {
+//   /**
+//    * queryURLParams: 获取URL地址问号后面的参数信息（可能包含HASH值）
+//    *  @params
+//    *  @return
+//    *    [object] 把所有问号参数信息以键值对的方式存储起来并返回
+//    * by zhufengpeixun on 2021/01/17
+//    */
+//   function queryURLParams() {
+//     let obj = {};
+//     this.replace(/([^?=&#]+)=([^?=&#]+)/g, (...[, $1, $2]) => (obj[$1] = $2));
+//     this.replace(/#([^?=&#]+)/g, (...[, $1]) => (obj['HASH'] = $1));
+//     return obj;
+//   }
+//   /*扩展到String。prototype上 */
+//   ['queryURLParams'].forEach(item => {
+//     String.prototype[item] = eval(item);
+//   });
+// })();
 
-// 	url.replace(reg1, (n, x, y) => (result[x] = y));
-// 	url.replace(reg2, (n, x) => (result['HASH'] = x));
-// 	return result;
-// }
+// let url = 'http://www.zhufengpeixun.com/?lx=1&from=wx#video';
+// console.log(url.queryURLParams()); //=> {lx: "1", from: "wx", HASH: "video"}
 
 function queryUrlParams(url) {
 	//获取 ？和 # 后面的信息

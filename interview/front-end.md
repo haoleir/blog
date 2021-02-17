@@ -347,3 +347,54 @@ console.log(time.formatTime('{0}年{1}月{2}日')); //=> 2019年08月13日
 console.log(time.formatTime('{1}/{2} {3}:{4}:{5}')); //=> 08/13 00:00:00
 ```
 
+### 17. 数字以千分符分割
+
+```javascript
+let num = '15628954';
+num = '12345678256874';
+
+/* 1.传统方法 */
+// function millimeter(num) {
+//   num = num
+//     .split('')
+//     .reverse()
+//     .join('');
+//
+//   for (let i = 2; i < num.length - 1; i += 4) {
+//     let prev = num.substring(0, i + 1),
+//       next = num.substring(i + 1);
+//     num = prev + ',' + next;
+//   }
+
+//   num = num
+//     .split('')
+//     .reverse()
+//     .join('');
+//   return num;
+// }
+
+// console.log(millimeter(num)); //=> 12,345,678,256,874
+
+/* 2.正则 */
+~(function() {
+  /**
+   * millimeter: 数字以千分符分割
+   * @param
+   *  num[string] 传入的数字
+   * @return
+   *  num[string] 分割后的数字
+   *
+   * by zhufengpeixun on 2021/01/17
+   */
+  function millimeter() {
+    return this.replace(/\d{1,3}(?=(\d{3})+$)/g, content => (content = content + ','));
+  }
+  /*扩展到String。prototype上 */
+  ['millimeter'].forEach(item => {
+    String.prototype[item] = eval(item);
+  });
+})();
+
+console.log(num.millimeter()); //=> 12,345,678,256,874
+```
+
