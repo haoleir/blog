@@ -165,6 +165,7 @@ function getStyle(obj, arr) {
    			height: 50px;
    			background: #cccccc;
    		}
+       /* 手写clearfix */
    		.clearfix:after {
    			content: '';
    			display: table;
@@ -341,4 +342,22 @@ function getStyle(obj, arr) {
 
     1. [语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
     2. [实例篇](http://www.ruanyifeng.com/blog/2015/07/flex-examples.html)
+    
+11. 水平居中和垂直居中
 
+    1. 水平居中
+       - inline 元素：text-align: center;
+       - block 元素：margin: auto;
+       - absolute 元素：left 50% + margin-left负值（元素自身宽度一半）
+    2. 垂直居中
+       - inline 元素：line-height 的值等于 height 值;
+       - block 元素：margin: auto;
+       - absolute 元素：top 50% + margin-top负值（元素自身高度一半）
+       - absolute 元素：trasform: translate(-50%, -50%)
+       - absolute 元素：top,right,bottom,left=0 + margin: auto
+    
+12. Line-height如何继承？
+
+    - 写具体数值，如30px, 则直接继承该数值
+    - 写比例，如2/1.5，则继承该比例
+    - 写百分比，如200%，则继承计算出来的值（考点）
