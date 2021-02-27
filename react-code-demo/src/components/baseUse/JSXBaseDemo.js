@@ -40,23 +40,23 @@ class JSXBaseDemo extends React.Component {
         // return styleElem
 
         // 原生 html
-        // const rawHtml = '<span>富文本内容<i>斜体</i><b>加粗</b></span>'
-        // const rawHtmlData = {
-        //     __html: rawHtml // 注意，必须是这种格式
-        // }
-        // const rawHtmlElem = <div>
-        //     <p dangerouslySetInnerHTML={rawHtmlData}></p>
-        //     <p>{rawHtml}</p>
-        // </div>
-        // return rawHtmlElem
+        const rawHtml = '<span>富文本内容<i>斜体</i><b>加粗</b></span>'
+        const rawHtmlData = {
+            __html: rawHtml // 注意，必须是这种格式
+        }
+        const rawHtmlElem = <div>
+            <p dangerouslySetInnerHTML={rawHtmlData}></p>
+            <p>{rawHtml}</p>
+        </div>
+        return rawHtmlElem
 
         // // 加载组件
-        const componentElem = <div>
-            <p>JSX 中加载一个组件</p>
-            <hr/>
-            <List/>
-        </div>
-        return componentElem
+        // const componentElem = <div>
+        //     <p>JSX 中加载一个组件</p>
+        //     <hr/>
+        //     <List/>
+        // </div>
+        // return componentElem
     }
 }
 

@@ -1,8 +1,8 @@
 import React from 'react'
-// import JSXBaseDemo from './JSXBaseDemo'
+import JSXBaseDemo from './JSXBaseDemo'
 // import ConditionDemo from './ConditionDemo'
 // import ListDemo from './ListDemo'
-import EventDemo from './EventDemo'
+// import EventDemo from './EventDemo'
 // import FormDemo from './FormDemo'
 // import PropsDemo from './PropsDemo'
 // import StateDemo from './StateDemo'
@@ -14,10 +14,10 @@ class BaseUseDemo extends React.Component {
     }
     render() {
         return <div>
-            {/* <JSXBaseDemo/> */}
+            <JSXBaseDemo/>
             {/* <ConditionDemo/> */}
             {/* <ListDemo/> */}
-            <EventDemo/>
+            {/* <EventDemo/> */}
             {/* <FormDemo/> */}
             {/* <PropsDemo/> */}
             {/* <StateDemo/> */}

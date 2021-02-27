@@ -42,7 +42,7 @@ class StateDemo extends React.Component {
         //     console.log('count in setTimeout', this.state.count)
         // }, 0)
 
-        // 自己定义的 DOM 事件，setState 是同步的。再 componentDidMount 中
+        // 自己定义的 DOM 事件，setState 是同步的。在 componentDidMount 中
 
         // 第四，state 异步更新的话，更新前会被合并 ----------------------------
         

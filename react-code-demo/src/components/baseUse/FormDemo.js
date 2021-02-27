@@ -14,17 +14,17 @@ class FormDemo extends React.Component {
     render() {
 
         // // 受控组件（非受控组件，后面再讲）
-        // return <div>
-        //     <p>{this.state.name}</p>
-        //     <label htmlFor="inputName">姓名：</label> {/* 用 htmlFor 代替 for */}
-        //     <input id="inputName" value={this.state.name} onChange={this.onInputChange}/>
-        // </div>
+        return <div>
+            <p>{this.state.name}</p>
+            <label htmlFor="inputName">姓名：</label> {/* 用 htmlFor 代替 for */}
+            <input id="inputName" value={this.state.name} onChange={this.onInputChange}/>
+        </div>
 
         // textarea - 使用 value
-        return <div>
-            <textarea value={this.state.info} onChange={this.onTextareaChange}/>
-            <p>{this.state.info}</p>
-        </div>
+        // return <div>
+        //     <textarea value={this.state.info} onChange={this.onTextareaChange}/>
+        //     <p>{this.state.info}</p>
+        // </div>
 
         // // select - 使用 value
         // return <div>

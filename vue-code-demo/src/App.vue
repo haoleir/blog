@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <!-- <img alt="Vue logo" src="./assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 
     <!-- <TplDemo/> -->
 
     <!-- <ComputedDemo/> -->
 
-    <!-- <WatchDemo/> -->
+    <WatchDemo/>
 
     <!-- <ClassDemo/> -->
 
@@ -15,7 +15,7 @@
 
     <!-- <ListDemo/> -->
 
-    <EventDemo/>
+    <!-- <EventDemo/> -->
 
     <!-- <FormDemo/> -->
 
@@ -40,13 +40,13 @@
 
 // import ComputedDemo from './components/BaseUse/ComputedDemo'
 
-// import WatchDemo from './components/BaseUse/WatchDemo'
+import WatchDemo from './components/BaseUse/WatchDemo'
 
 // import ClassDemo from './components/BaseUse/ClassDemo'
 
 // import ListDemo from './components/BaseUse/ListDemo'
 
-import EventDemo from './components/BaseUse/EventDemo'
+// import EventDemo from './components/BaseUse/EventDemo'
 
 // import FormDemo from './components//FormDemo'
 
@@ -64,11 +64,11 @@ export default {
     // HelloWorld
     // TplDemo
     // ComputedDemo
-    // WatchDemo
+    WatchDemo
     // ClassDemo
     // ConditionDemo
     // ListDemo
-    EventDemo
+    // EventDemo
     // FormDemo
     // ComponentDemo
     // AdvancedUse
