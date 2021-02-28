@@ -29,7 +29,10 @@ divNode.onclick = function(e) {
 
 2. 宏任务和微任务的区别？
 
-> 微任务是在DOM渲染前执行；宏任务是在DOM渲染完成后执行。
+> 1. 微任务是在DOM渲染前执行；宏任务是在DOM渲染完成后执行。
+
+![image-20210228121858547](https://cdn.jsdelivr.net/gh/haoleir/file@master/images/image-20210228121858547-2021%2002%2028%2012%2018%20.png)
+
 
 ```html
 <!DOCTYPE html>
