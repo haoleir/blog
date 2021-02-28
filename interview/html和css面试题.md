@@ -361,3 +361,6 @@ function getStyle(obj, arr) {
     - 写具体数值，如30px, 则直接继承该数值
     - 写比例，如2/1.5，则继承该比例
     - 写百分比，如200%，则继承计算出来的值（考点）
+
+13. [重绘和回流的异同，如何避免优化？](https://blog.csdn.net/xiao_yu_liu/article/details/102475784)
+
