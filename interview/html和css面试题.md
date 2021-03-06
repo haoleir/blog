@@ -364,3 +364,5 @@ function getStyle(obj, arr) {
 
 13. [重绘和回流的异同，如何避免优化？](https://blog.csdn.net/xiao_yu_liu/article/details/102475784)
 
+14. [Vue弹幕效果?](https://blog.csdn.net/qq_31061615/article/details/111036013?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control&dist_request_id=e86ffa55-dc7e-46e7-9d34-ddbb28ff2099&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control)
+
