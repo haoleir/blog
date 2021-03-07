@@ -132,20 +132,22 @@ Function.prototype.myCall = function(context) {
 ### 6.bind
 
 ```javascript
-Function.prototype.myBind = function(context){
-    if(typeof this !== 'function'){
-        throw new TypeError('Error');
-    }
-    const self = this;
-    const args = [...arguments].slice(1);
-    return function F(){
-        //因为返回了一个函数，可以new F(),所以需要判断
-        if(this instanceof F){
-            return new self(...args,...arguments);
-        }
-        return self.apply(context,args.concat(...arguments));
-    }
-}
+Function.prototype.myBind = function(context) {
+  if (typeof this !== 'function') {
+    throw new TypeError('Error');
+  }
+  const that = this;
+  const bindArgs = Array.prototype.slice.call(arguments, 1);
+  function Fn() {}
+  function fBound() {
+    let args = Array.prototype.slice.call(arguments);
+    //因为返回了一个函数，可以new F(),所以需要判断
+    return that.apply(this instanceof F ? this : context, bindArgs.concat(args));
+  }
+  Fn.prototype = that.prototype;
+  fBound.prototype = new Fn();
+  return fBound;
+};
 ```
 
 
