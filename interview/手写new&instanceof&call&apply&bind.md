@@ -51,7 +51,7 @@ console.log(fn3.name) //hty3
 
 ### 2. instanceof
 
-```java
+```javascript
 /**
  * 
  *instanceof主要用于判断某个实例是否属于某个类型，也可用于判断某个实例是否是其父类型或者祖先类型的实例。
@@ -91,17 +91,18 @@ typeof null 为"object", 原因是因为 不同的对象在底层都表示为二
 ### 4. call
 
 ```javascript
-Function.prototype.myCall=function(context){
-        if(typeof this!=='function'){
-            throw new TypeError('Error');
-        }
-        context = context || window;
-        context.fn = this;
-        const args = [...arguments].slice(1);
-        const result = context.fn(...args);
-        delete context.fn;
-        return result;
-    }
+Function.prototype.myCall = function(context) {
+  context = [null, undefined].includes(context) ? window : Object(context);
+  context.fn = this;
+  let args = [];
+  for (let i = 1; i < arguments.length; i++) {
+    args.push('arguments[' + i + ']');
+  }
+
+  let result = eval('context.fn(' + args + ')');
+  delete context.fn;
+  return result;
+};
 ```
 
 
