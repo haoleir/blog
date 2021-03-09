@@ -367,3 +367,34 @@ function getStyle(obj, arr) {
 14. [Vue弹幕效果?](https://blog.csdn.net/qq_31061615/article/details/111036013?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control&dist_request_id=e86ffa55-dc7e-46e7-9d34-ddbb28ff2099&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control)
 
 15. [浅谈CSS到底会不会阻塞页面渲染](https://www.jb51.net/css/741168.html)
+
+    ![2020818164000614.jpg](https://img.jbzj.com/file_images/article/202008/2020818164000614.jpg?2020718164036)
+
+    1. 从上面的流程图我们可以看出来，浏览器渲染的流程如下：
+
+    - HTML解析文件，生成DOM Tree，解析CSS文件生成CSSOM Tree
+    - 将Dom Tree和CSSOM Tree结合，生成Render Tree(渲染树)
+    - 根据Render Tree渲染绘制，将像素渲染到屏幕上。
+
+    2. 从流程我们可以看出来：
+
+    - DOM解析和CSS解析是两个并行的进程，所以这也解释了为什么CSS加载不会阻塞DOM的解析。
+    - 然而，由于Render Tree是依赖于DOM Tree和CSSOM Tree的，所以他必须等待到CSSOM Tree构建完成，也就是CSS资源加载完成(或者CSS资源加载失败)后，才能开始渲染。因此，CSS加载是会阻塞Dom的渲染的。
+    - 由于js可能会操作之前的Dom节点和css样式，因此浏览器会维持html中css和js的顺序。因此，样式表会在后面的js执行前先加载执行完毕。所以css会阻塞后面js的执行。
+
+    3. **DOMContentLoaded**
+
+    对于浏览器来说，页面加载主要有两个事件，一个是DOMContentLoaded，另一个是onLoad。而onLoad没什么好说的，就是等待页面的所有资源都加载完成才会触发，这些资源包括css、js、图片视频等。
+
+    而DOMContentLoaded，顾名思义，就是当页面的内容解析完成后，则触发该事件。那么，正如我们上面讨论过的，css会阻塞Dom渲染和js执行，而js会阻塞Dom解析。那么我们可以做出这样的假设
+
+    - 当页面只存在css，或者js都在css前面，那么DomContentLoaded不需要等到css加载完毕。
+    - 当页面里同时存在css和js，并且js在css后面的时候，DomContentLoaded必须等到css和js都加载完毕才触发。
+
+    <font color='red'> **4.  总结** </font>
+
+    由上所述，我们可以得出以下结论:
+
+    - css加载不会阻塞DOM树的解析
+    - css加载会阻塞DOM树的渲染
+    - css加载会阻塞后面js语句的执行
