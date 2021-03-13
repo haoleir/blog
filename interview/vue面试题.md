@@ -61,12 +61,12 @@
    //初次渲染
    1.initState ->进行双向绑定
    2.$mount->将template编译成render函数
-   3.执行渲染 触发属性get函数,将渲染watcher 收集到dep中
+   3.执行渲染 触发属性getter函数,将渲染watcher 收集到dep中
    4.调用render 函数 生成vnode
    5.patch(elm,vnode)
    
    //更新
-   1.修改data 触发属性set
+   1.修改data 触发属性setter
    2.然后dep.notify() ->watch.update 派发更新
    3.触发render watcher 的render回调
    4.生成新的vnode
@@ -214,7 +214,17 @@
 
 18. [谈谈对v-bind的理解](https://www.jianshu.com/p/98dfa4c6389c)
 
-    
+19.  [vue是如何做异步渲染的？ $nextTick原理](https://www.jb51.net/article/189085.htm)
+
+    > 在数据每次变化时，将其所要引起页面变化的部分都放到一个异步API的回调函数里，直到同步代码执行完之后，异步回调开始执行，最终将同步代码里所有的需要渲染变化的部分合并起来，最终执行一次渲染操作。
+    >
+    > 异步队列执行后，存储页面变化的全局数组得到遍历执行，执行的时候会进行一些筛查操作，将重复操作过的数据进行处理，实际就是先赋值的丢弃不渲染，最终按照优先级最终组合成一套数据渲染。
+    >
+    > 这里触发渲染的异步API优先考虑Promise，其次MutationObserver，如果没有MutationObserver的话，会考虑setImmediate，没有setImmediate的话最后考虑是setTimeout。
+
+    1. 同步修改 data 时，把修改操作汇总到一个队列中；
+    2. 在异步执行时取得这个队列，将其中的修改数据汇总，就像 Object.assign；
+    3. 用汇总的结果统一修改 data ，触发试图更新。
 
 ​    
 
