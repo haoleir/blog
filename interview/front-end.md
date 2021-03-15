@@ -1,4 +1,4 @@
-### 1.  nodejs如何避免回调地狱
+1.  nodejs如何避免回调地狱
 
 ```javascript
 /**
@@ -31,13 +31,13 @@ async function test() {
 test()
 ```
 
-### 2. [图片懒加载原理](https://www.cnblogs.com/zhuzhenwei918/p/6943156.html)
+2. [图片懒加载原理](https://www.cnblogs.com/zhuzhenwei918/p/6943156.html)
 
 > 图片懒加载的原理很简单，就是我们先设置图片的data-set属性（当然也可以是其他任意的，只要不会发送http请求就行了，作用就是为了存取值）值为其图片路径，由于不是src，所以不会发送http请求。 然后我们计算出页面scrollTop的高度和浏览器的高度之和， 如果图片距离页面顶端的坐标Y（相对于整个页面，而不是浏览器窗口）小于前两者之和，就说明图片就要显示出来了（合适的时机，当然也可以是其他情况），这时候我们再将 data-set 属性替换为 src 属性即可。
 
-### 3. [如何构建大型的前端项目](https://segmentfault.com/a/1190000016647822)
+3. [如何构建大型的前端项目](https://segmentfault.com/a/1190000016647822)
 
-###  4. 普通函数如何执行？
+4. 普通函数如何执行？
 
 	1. 形成一个私有作用域
 	2. 形参赋值
@@ -45,19 +45,19 @@ test()
 	4. 代码执行
 	5. 栈内存释放问题
 
-###  5. 如何理解原型链？
+5. 如何理解原型链？
 
 	1. 所有的函数数据类型都有一个属性：prototype ，这个属性的值是一个对象，浏览器会默认给它开辟一个堆内存
 	2. 在浏览器给 prototype 开辟的堆内存中有一个属性：constructor ，这个属性存储的值是当前函数本身
 	3. 每一个对象都有一个 __proto__ 的属性，这个属性指向当前实例所属类的 prototype（如果不能确定它是谁的实例，那么都是Object的实例）
 
-### 6. 什么是面向对象？
+6. 什么是面向对象？
 
 - 面向对象是一种编程思想， Js本身就是基于面向对象构建出来的（例如： JS中有很多内置类，像Promise就是ES6中新增的一个内置类，我们可以基于new Promise来创建一个实例，来管理异步编程，我在项目中也经常用Promise， 自己也研究过它的源码...） ，我之前看过一点框架源码，我们平时用的VUE/REACT/JQUERV也是基于面向对象构建出来的，他们都是类，平时开发的时候都是创建他们的实例来操作的；当然我自己在真实项目中，也封装过一些组件插件（例如 Dialog 、 拖拽），也是基于面向对象开发的，这样可以创造不同的实例，来管理私有的属性和公有的方法，很方便...
 
 - JS中的面向对象，和其它编程语言还是有略微不同的， Js中类和实例是基于原型和原型链机制来处理的；而且Js中关于类的重载、重写、继承也和其它语言不太一样
 
-### 7. js中的原型继承
+7. js中的原型继承
 
 1. 让父类中的属性和方法在子类实例的原型链上
 
@@ -69,14 +69,14 @@ test()
    - 子类可以重写父类上的方法（这样会导致父类其它的实例也受到影响）；
    - 父类中私有或者公有的属性方法，最后都会变为子类中公有的属性和方法。
 
-### 8. js中的call或apply继承
+8. js中的call或apply继承
 
 - CHILD方法中把PARENT当做普通函数执行，让PARENT中的THIS指向CHILD的实例，相当于给CHILD的实例设置了很多私有的属性或者方法
 
 - 只能继承父类私有的属性或者方法（因为是把PARENT当做普通函数执行，和其原型上的属性和方法没有关系）
 - 父类私有的变为子类私有的
 
-### 9. js中的寄生组合继承
+9. js中的寄生组合继承
 
 ​	call继承 +  Object.create(Parent.prototype)
 
@@ -111,7 +111,7 @@ console.log(child.x);
 child.getX();
 ```
 
-### 10. 请实现 (5).add(3).minus(2) 并输出 6
+10. 请实现 (5).add(3).minus(2) 并输出 6
 
 ```javascript
 (function() {
@@ -137,14 +137,14 @@ child.getX();
 console.log((5).add(3).minus(2));
 ```
 
-### 11. 箭头函数和普通函数的区别？
+11. 箭头函数和普通函数的区别？
 
 + 箭头函数语法上比普通函数更加简洁（ES6中每一种函数都可以使用形参赋默认值和剩余运算符）
 + 2.箭头函数没有自己的THIS，它的THIS是继承函数所处上下文中的THIS （使用CALL/APPY等任何方式都无法改变THIS的指向）
 + 3.箭头函数中没有ARGUMENTS （类数组） ，只能基于...ARG获取传递的参数集合（数组）
 + 4.箭头函数不能被new执行（因为：箭头函数没有this也没有prototype)
 
-### 12. 手写实现JQuery中的each方法
+12. 手写实现JQuery中的each方法
 
 ```javascript
 function each(arr, callback) {
@@ -164,7 +164,7 @@ each([10, 20, 30, 40], function(item, index) {
 });
 ```
 
-### 13. git工作流程？
+13. git工作流程？
 
 1. fork我的项目
 2. git clone https://github.com/你自己的名字/node201509_homework.git
@@ -176,7 +176,7 @@ each([10, 20, 30, 40], function(item, index) {
 8. 发起一个pullrequest
 9. 由源仓库作者合并pullrequest
 
-### 14. 实现字符串match方法
+14. 实现字符串match方法
 
 ```javascript
 // 字符串match方法
@@ -202,7 +202,7 @@ console.log(str.match(reg));
 console.log(reg.execAll(str));
 ```
 
-### 15. 获取一个字符串中出现次数最多的字母
+15. 获取一个字符串中出现次数最多的字母
 
 ```javascript
 // 获取一个字符串中出现次数最多的字母
@@ -307,7 +307,7 @@ if (obj[res[0]] !== max) {
 console.log(`出现次数最多的字母为：${res}，次数为：${max}`);
 ```
 
-### 16. 时间字符串的格式化处理
+16. 时间字符串的格式化处理
 
 ```javascript
 ~(function() {
@@ -347,7 +347,7 @@ console.log(time.formatTime('{0}年{1}月{2}日')); //=> 2019年08月13日
 console.log(time.formatTime('{1}/{2} {3}:{4}:{5}')); //=> 08/13 00:00:00
 ```
 
-### 17. 数字以千分符分割
+17. 数字以千分符分割
 
 ```javascript
 let num = '15628954';
@@ -398,4 +398,18 @@ num = '12345678256874';
 console.log(num.millimeter()); //=> 12,345,678,256,874
 ```
 
-### 17.  [flexbox 弹性盒布局和布局原理](https://blog.csdn.net/lihongxun945/article/details/45458717/)
+17. [flexbox 弹性盒布局和布局原理](https://blog.csdn.net/lihongxun945/article/details/45458717/)
+
+18. [前端面试十大经典排序算法（动画演示）](https://blog.csdn.net/xiaoxiaojie12321/article/details/81380834)
+
+19. script标签中defer和async的区别是什么？
+
+    默认情况下，脚本的下载和执行将会按照文档的先后顺序同步进行。当脚本下载和执行的时候，文档解析就会被阻塞，在脚本下载和执行完成之后文档才能往下继续进行解析。
+
+    下面是async和defer两者区别：
+
+    \- 当script中有defer属性时，脚本的加载过程和文档加载是异步发生的，等到文档解析完(DOMContentLoaded事件发生)脚本才开始执行。
+
+    \- 当script有async属性时，脚本的加载过程和文档加载也是异步发生的。但脚本下载完成后会停止HTML解析，执行脚本，脚本解析完继续HTML解析。
+
+    \- 当script同时有async和defer属性时，执行效果和async一致。
