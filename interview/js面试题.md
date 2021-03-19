@@ -67,3 +67,55 @@ divNode.onclick = function(e) {
 </html>
 ```
 
+3. 手写 Promise 的 all 方法
+
+```javascript
+function PromiseAll(promiseArr) {
+  return new Promise((resolve, reject) => {
+    if (!Array.isArray(promiseArr)) {
+      reject(new Error('传入的参数必须是数组！'));
+    }
+    const res = [];
+    const promiseNum = promiseArr.length;
+    let counter = 0;
+    for (let i = 0; i < promiseNum; i++) {
+      Promise.resolve(promiseArr[i])
+        .then(val => {
+          counter++;
+          res[i] = val;
+          if (counter === promiseNum) {
+            resolve(res);
+          }
+        })
+        .catch(e => reject(e));
+    }
+  });
+}
+
+//测试
+const pro1 = new Promise((res, reject) => {
+  setTimeout(() => {
+    res('2');
+  }, 1000);
+});
+const pro2 = new Promise((res, reject) => {
+  setTimeout(() => {
+    res('1');
+  }, 1000);
+});
+const pro3 = new Promise((res, reject) => {
+  setTimeout(() => {
+    res('3');
+  }, 1000);
+});
+
+const proAll = PromiseAll([pro1, pro2, pro3])
+  .then(res => {
+    console.log(res);
+  })
+  .catch(e => {
+    console.log(e);
+  });
+```
+
+   
