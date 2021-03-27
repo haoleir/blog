@@ -3,11 +3,11 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 
-    <!-- <TplDemo/> -->
+    <TplDemo/>
 
     <!-- <ComputedDemo/> -->
 
-    <WatchDemo/>
+    <!-- <WatchDemo/> -->
 
     <!-- <ClassDemo/> -->
 
@@ -36,11 +36,11 @@
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 
-// import TplDemo from './components/BaseUse/TplDemo'
+import TplDemo from './components/BaseUse/TplDemo'
 
 // import ComputedDemo from './components/BaseUse/ComputedDemo'
 
-import WatchDemo from './components/BaseUse/WatchDemo'
+// import WatchDemo from './components/BaseUse/WatchDemo'
 
 // import ClassDemo from './components/BaseUse/ClassDemo'
 
@@ -61,18 +61,18 @@ import WatchDemo from './components/BaseUse/WatchDemo'
 export default {
   name: 'app',
   components: {
-    // HelloWorld
-    // TplDemo
-    // ComputedDemo
-    WatchDemo
-    // ClassDemo
-    // ConditionDemo
-    // ListDemo
-    // EventDemo
-    // FormDemo
-    // ComponentDemo
-    // AdvancedUse
-    // VuexDemo
+    // HelloWorld,
+    TplDemo,
+    // ComputedDemo,
+    // WatchDemo,
+    // ClassDemo,
+    // ConditionDemo,
+    // ListDemo,
+    // EventDemo,
+    // FormDemo,
+    // ComponentDemo,
+    // AdvancedUse,
+    // VuexDemo,
     // CartDemo
   },
   data() {

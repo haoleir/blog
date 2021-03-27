@@ -36,18 +36,18 @@ class EventDemo extends React.Component {
         // </p>
 
         // // event
-        // return <a href="https://imooc.com/" onClick={this.clickHandler3}>
-        //     click me
-        //     <br/>
-        //     <div>点我啊</div>
-        // </a>
+        return <a href="https://imooc.com/" onClick={this.clickHandler3}>
+            click me
+            <br/>
+            <div>点我啊</div>
+        </a>
 
         // 传递参数 - 用 bind(this, a, b)
-        return <ul>{this.state.list.map((item, index) => {
-            return <li key={item.id} onClick={this.clickHandler4.bind(this, item.id, item.title)}>
-                index {index}; title {item.title}
-            </li>
-        })}</ul>
+        // return <ul>{this.state.list.map((item, index) => {
+        //     return <li key={item.id} onClick={this.clickHandler4.bind(this, item.id, item.title)}>
+        //         index {index}; title {item.title}
+        //     </li>
+        // })}</ul>
     }
     clickHandler1() {
         // console.log('this....', this) // this 默认是 undefined
