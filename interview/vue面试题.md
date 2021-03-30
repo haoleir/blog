@@ -225,7 +225,10 @@
     1. 同步修改 data 时，把修改操作汇总到一个队列中；
     2. 在异步执行时取得这个队列，将其中的修改数据汇总，就像 Object.assign；
     3. 用汇总的结果统一修改 data ，触发试图更新。
+    
+20. [vue做seo优化](https://blog.csdn.net/kang_k/article/details/100514042)
 
 ​    
 
 ​    
+
