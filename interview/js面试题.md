@@ -159,7 +159,7 @@ promiseFn(1111, 1000)
   })
   .then(data => {
     return promiseFn(3333, 3000);
-  }).catch(err => {console.log(err});
+  }).catch(err => {console.log(err)});
 
 //2. generator解法
 let timer = function(data, delay) {
