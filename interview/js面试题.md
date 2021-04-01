@@ -245,13 +245,12 @@ function promiseAjax(url) {
   });
 }
 
-promiseAjax(queryUrl).then(
-  function(data) {
-    console.log(data);
-  },
-  function(err) {
+promiseAjax(queryUrl)
+  .catch(function(err) {
     console.log(err);
-  }
-);
+  })
+  .then(function(data) {
+    console.log(data);
+  });
 ```
 
