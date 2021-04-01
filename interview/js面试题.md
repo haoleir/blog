@@ -194,3 +194,64 @@ let asyncFn = async function() {
 asyncFn();
 ```
 
+5. 怎么用promise封装原生ajax请求？
+
+```javascript
+const queryUrl = 'https://www.baidu.com/sugrec?from=pc_web&wd=' + '平安';
+
+// 1.原生ajax
+function ajax(url, success, fail) {
+  var client = new XMLHttpRequest();
+  client.open('GET', url);
+  client.onreadystatechange = function() {
+    if (this.readyState !== 4) {
+      return;
+    }
+    if (this.status === 200) {
+      success(this.response);
+    } else {
+      fail(new Error(this.statusText));
+    }
+  };
+  client.send();
+}
+
+ajax(
+  queryUrl,
+  function(data) {
+    console.log(data);
+  },
+  function(err) {
+    console.log(err);
+  }
+);
+
+// 2.promise封装ajax
+function promiseAjax(url) {
+  return new Promise((resolve, reject) => {
+    var client = new XMLHttpRequest();
+    client.open('GET', url);
+    client.onreadystatechange = function() {
+      if (this.readyState !== 4) {
+        return;
+      }
+      if (this.status === 200) {
+        resolve(this.response);
+      } else {
+        reject(new Error(this.statusText));
+      }
+    };
+    client.send();
+  });
+}
+
+promiseAjax(queryUrl).then(
+  function(data) {
+    console.log(data);
+  },
+  function(err) {
+    console.log(err);
+  }
+);
+```
+
