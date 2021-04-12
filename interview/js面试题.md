@@ -254,3 +254,42 @@ promiseAjax(queryUrl)
   });
 ```
 
+6. 如何实现Promise 并行或者串行执行？
+
+```javascript
+function sleep(time = 1) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log('promise resolved');
+      resolve();
+    }, time * 1000);
+  });
+}
+
+const promiseCreatorList = [sleep, sleep, sleep];
+
+// 1.promise.all (promise并行执行)
+console.log('promise.all start', new Date().getTime());
+Promise.all(promiseCreatorList.map(item => item())).then(() => {
+  console.log('promise.all end', new Date().getTime());
+});
+
+// 2.for of async (promise串行执行)
+async function main() {
+  console.log('for of async start', new Date().getTime());
+  async function forOfLoop() {
+    for (const promiseInstance of promiseCreatorList) {
+      await promiseInstance();
+    }
+  }
+  await forOfLoop();
+  console.log('for of async end', new Date().getTime());
+}
+main();
+
+//3.promise链式调用 (promise串行执行)
+const promiseChain = promiseCreatorList.reduce((mem, cur, index, arr) => {
+  return mem.then(cur);
+}, Promise.resolve());
+```
+
