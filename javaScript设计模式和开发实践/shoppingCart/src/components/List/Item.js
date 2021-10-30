@@ -59,9 +59,9 @@ export default class Item {
       if (fsm.is('加入购物车')) {
         fsm.addToCart();
       } else {
+        // 从购物车删除
         fsm.deleteFromCart();
       }
-      // 从购物车删除
     });
     updateText();
     $el.append($btn);
