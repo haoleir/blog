@@ -18,8 +18,7 @@ module.exports = {
     port: 9000, // 端口
     proxy: {
       '/api/*': {
-        target: 'http://localhost:8880',
-        pathRewrite: { '^/api': '/src/api/' }
+        target: 'http://localhost:8880'
       }
     }
   },

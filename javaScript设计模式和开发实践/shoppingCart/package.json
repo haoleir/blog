@@ -6,7 +6,7 @@
   "scripts": {
     "start": "run-p listen dev",
     "dev": "webpack-dev-server --config ./webpack.dev.config.js --mode development",
-    "listen": "http-server -o ./src/api/list.json -p 8880"
+    "listen": "http-server -o ./api/list.json -p 8880"
   },
   "author": "",
   "license": "ISC",
