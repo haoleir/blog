@@ -12,6 +12,12 @@ module.exports = {
       template: './index.html' // bundle.js 会自动注入
     })
   ],
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      '@': pathresolve('src')
+    }
+  },
   devServer: {
     contentBase: path.join(__dirname, './dist'), // 根目录
     open: true, // 自动打开浏览器
