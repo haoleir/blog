@@ -15,8 +15,7 @@ export default class List {
   //生成列表
   renderItemList(data) {
     data.forEach(itemData => {
-      console.log(itemData);
-      let item = creatItem(this.itemData);
+      let item = creatItem(this, itemData);
       item.init();
     });
   }

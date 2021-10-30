@@ -16,9 +16,9 @@ class Cart {
 
 //返回购物车单例
 let getCart = (function() {
-  let Cart;
+  let cart;
   return function() {
-    return Cart || (Cart = new Cart());
+    return cart || (cart = new Cart());
   };
 })();
 
