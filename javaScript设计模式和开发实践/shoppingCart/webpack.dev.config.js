@@ -15,7 +15,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      '@': pathresolve('src')
+      '@': path.resolve('src')
     }
   },
   devServer: {
