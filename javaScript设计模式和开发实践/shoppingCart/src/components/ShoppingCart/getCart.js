@@ -7,7 +7,7 @@ class Cart {
     this.list.push(data);
   }
   del(id) {
-    return this.list.filter(o => o.id !== id);
+    this.list = this.list.filter(o => o.id !== id);
   }
   getList() {
     return this.list.map(i => i.name).join('\n');

@@ -15,7 +15,6 @@ export default class Item {
     let data = this.data;
     $el.append($(`<p>名称：${data.name}</p>`));
     $el.append($(`<p>价格：${data.price}</p>`));
-    $el.append($(`<p>名称：${data.name}</p>`));
   }
   initBtn() {
     let $el = this.$el;
