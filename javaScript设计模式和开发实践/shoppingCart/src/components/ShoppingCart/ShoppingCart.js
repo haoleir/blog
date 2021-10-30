@@ -1,4 +1,4 @@
-import $ from './node_modules/jquery';
+import $ from 'jquery';
 
 export default class ShoppingCart {
   constructor(app) {}
