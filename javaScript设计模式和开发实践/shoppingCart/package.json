@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --config ./webpack.dev.config.js --mode development"
+    "start": "run-s listen dev",
+    "dev": "webpack-dev-server --config ./webpack.dev.config.js --mode development",
+    "listen": "http-server -o ./src/api/list.json -p 8880"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +18,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-latest": "^6.24.1",
     "html-webpack-plugin": "^3.2.0",
+    "npm-run-all": "^4.1.5",
     "webpack": "^4.8.3",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.1.4"
