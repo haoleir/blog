@@ -1,9 +1,10 @@
 <template>
   <div id="app">
+    <Practice />
     <!-- <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
 
-    <TplDemo/>
+    <!-- <TplDemo/> -->
 
     <!-- <ComputedDemo/> -->
 
@@ -23,7 +24,7 @@
       <ComponentDemo v-if="is"/>
       <br/>
       <button @click="is=false">销毁父子组件</button>
-    </div> -->
+    </div>-->
 
     <!-- <AdvancedUse/> -->
 
@@ -34,9 +35,10 @@
 </template>
 
 <script>
+import Practice from "./components/Practice/index.vue";
 // import HelloWorld from './components/HelloWorld.vue'
 
-import TplDemo from './components/BaseUse/TplDemo'
+// import TplDemo from './components/BaseUse/TplDemo'
 
 // import ComputedDemo from './components/BaseUse/ComputedDemo'
 
@@ -59,10 +61,11 @@ import TplDemo from './components/BaseUse/TplDemo'
 // import CartDemo from './components/Cart/index'
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
+    Practice
     // HelloWorld,
-    TplDemo,
+    // TplDemo,
     // ComputedDemo,
     // WatchDemo,
     // ClassDemo,
