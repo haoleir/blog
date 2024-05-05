@@ -1,4 +1,4 @@
-####1. Js 创建 10 个 <a> 标签，点击弹出相应的序号
+#### 1. Js 创建 10 个 <a> 标签，点击弹出相应的序号
 
 ```javascript
 //创建文档片段 ，一次性插入dom节点提高性能
@@ -27,7 +27,7 @@ divNode.onclick = function (e) {
 };
 ```
 
-####2. 宏任务和微任务的区别？
+#### 2. 宏任务和微任务的区别？
 
 > 1. 微任务是在 DOM 渲染前执行；宏任务是在 DOM 渲染完成后执行。
 
@@ -63,7 +63,7 @@ divNode.onclick = function (e) {
 </html>
 ```
 
-####3. 手写 Promise 的 all 方法
+#### 3. 手写 Promise 的 all 方法
 
 ```javascript
 function PromiseAll(promiseArr) {
@@ -114,7 +114,7 @@ const proAll = PromiseAll([pro1, pro2, pro3])
   });
 ```
 
-####4. 请你分析一下，promise，generator，async 三者之间的关系？
+#### 4. 请你分析一下，promise，generator，async 三者之间的关系？
 
 ```javascript
 /*
@@ -190,7 +190,7 @@ let asyncFn = async function() {
 asyncFn();
 ```
 
-####5. 怎么用 promise 封装原生 ajax 请求？
+#### 5. 怎么用 promise 封装原生 ajax 请求？
 
 ```javascript
 const queryUrl = 'https://www.baidu.com/sugrec?from=pc_web&wd=' + '平安';
@@ -250,7 +250,7 @@ promiseAjax(queryUrl)
   });
 ```
 
-####6. 如何实现 Promise 并行或者串行执行？
+#### 6. 如何实现 Promise 并行或者串行执行？
 
 ```javascript
 function sleep(time = 1) {
@@ -289,7 +289,7 @@ const promiseChain = promiseCreatorList.reduce((mem, cur, index, arr) => {
 }, Promise.resolve());
 ```
 
-####7. 数组扁平化方法 flatten
+#### 7. 数组扁平化方法 flatten
 
 ```javascript
 /**
@@ -460,7 +460,7 @@ Function.prototype.myBind = function (context) {
 };
 ```
 
-### 14. Object.create 实现原理
+#### 14. Object.create 实现原理
 
 ```javascript
 const myCreate = function (obj) {
@@ -468,4 +468,663 @@ const myCreate = function (obj) {
   F.prototype = obj;
   return new F();
 };
+```
+
+#### 15. 深拷贝 deepClone.js
+
+```javascript
+// 简易版.js
+/* function deepClone(obj) {
+	if (typeof obj !== 'object' || obj == null) {
+		return obj;
+	}
+	const target = Array.isArray(obj) ? [] : {};
+	for (const key in obj) {
+		if (obj.hasOwnProperty(key)) {
+      target[key] = deepClone(obj[key]);
+		}
+	}
+  return target;
+} */
+
+// 测试
+// const simple = {
+// 	s: '',
+// 	sym: Symbol(),
+// 	obj: {
+// 		bool: false,
+// 		n: null
+// 	},
+// 	array: [
+// 		{
+// 			nan: NaN,
+// 			i: Infinity,
+// 			sym: Symbol()
+// 		},
+// 		123
+// 	]
+// };
+// let a1 = deepClone(simple);
+// console.log(simple);
+// console.log(a1);
+
+// 完整版
+function deepClone(target, cache = new Map()) {
+  if (cache.get(target)) {
+    return cache.get(target);
+  }
+  if (target instanceof Object) {
+    let dist;
+    if (target instanceof Array) {
+      dist = [];
+    } else if (target instanceof Function) {
+      const fn = function () {
+        return target.call(this, ...arguments);
+      };
+      fn.name = target.name;
+      dist = fn;
+    } else if (target instanceof RegExp) {
+      dist = new RegExp(target.source, target.flags);
+    } else if (target instanceof Date) {
+      dist = new Date(target);
+    } else {
+      dist = {};
+    }
+    cache.set(target, dist);
+
+    for (const key in target) {
+      if (target.hasOwnProperty(key)) {
+        dist[key] = deepClone(target[key], cache);
+      }
+    }
+    return dist;
+  } else {
+    return target;
+  }
+}
+
+// const a = {
+// 	i: Infinity,
+// 	s: '',
+// 	bool: false,
+// 	n: null,
+// 	u: undefined,
+// 	sym: Symbol(),
+// 	obj: {
+// 		i: Infinity,
+// 		s: '',
+// 		bool: false,
+// 		n: null,
+// 		u: undefined,
+// 		sym: Symbol()
+// 	},
+// 	array: [
+// 		{
+// 			nan: NaN,
+// 			i: Infinity,
+// 			s: '',
+// 			bool: false,
+// 			n: null,
+// 			u: undefined,
+// 			sym: Symbol()
+// 		},
+// 		123
+// 	],
+// 	fn: function() {
+// 		return 'fn';
+// 	},
+// 	date: new Date(),
+// 	re: /hi\d/gi
+// };
+// let a2 = deepClone(a);
+// console.log(a);
+// console.log(a2);
+// console.log(a2 !== a);
+// console.log(a2.i === a.i);
+// console.log(a2.s === a.s);
+// console.log(a2.bool === a.bool);
+// console.log(a2.n === a.n);
+// console.log(a2.u === a.u);
+// console.log(a2.sym === a.sym);
+// console.log(a2.obj !== a.obj);
+// console.log(a2.array !== a.array);
+// console.log(a2.array[0] !== a.array[0]);
+// console.log(a2.array[0].i === a.array[0].i);
+// console.log(a2.array[0].s === a.array[0].s);
+// console.log(a2.array[0].bool === a.array[0].bool);
+// console.log(a2.array[0].n === a.array[0].n);
+// console.log(a2.array[0].u === a.array[0].u);
+// console.log(a2.array[0].sym === a.array[0].sym);
+// console.log(a2.array[1] === a.array[1]);
+// console.log(a2.fn !== a.fn);
+// console.log(a2.date !== a.date);
+// console.log(a2.re !== a.re);
+```
+
+#### 16. 发布订阅模式
+
+1. test.js
+
+```javascript
+//发布订阅模块
+const eventEmitter = require('./index.js');
+const util = require('util');
+
+function Girl() {}
+util.inherits(Girl, eventEmitter);
+let girl = new Girl();
+console.log('girl: ', girl);
+
+let listener1 = (who) => {
+  console.log(who + '哭');
+};
+
+let listener2 = (who) => {
+  console.log(who + '逛街');
+};
+
+girl.on('女生失恋', listener1);
+girl.on('女生失恋', listener2);
+
+girl.emit('女生失恋', '我');
+```
+
+2. events.js
+
+```javascript
+function Events() {
+  this._events = Object.create(null);
+}
+
+Events.prototype.on = function (eventName, callback) {
+  if (!this._events) {
+    this._events = Object.create(null);
+  }
+  if (this._events[eventName]) {
+    this._events[eventName].push(callback);
+  } else {
+    this._events[eventName] = [callback];
+  }
+};
+Events.prototype.emit = function (eventName, ...afgs) {
+  if (this._events[eventName]) {
+    this._events[eventName].forEach((fn) => {
+      fn(...afgs);
+    });
+  }
+};
+
+module.exports = Events;
+```
+
+#### 17. 手写一个简易的 jQuery，考虑插件和扩展性
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>手写简易jquery</title>
+    <style></style>
+  </head>
+
+  <body>
+    <p>一段文字1</p>
+    <p>一段文字2</p>
+    <p>一段文字3</p>
+
+    <script type="text/javascript" src="./test.js"></script>
+  </body>
+</html>
+```
+
+```javascript
+class JQuery {
+  constructor(selector) {
+    const result = document.querySelectorAll(selector);
+    const length = result.length;
+    for (let i = 0; i < length; i++) {
+      this[i] = result[i];
+    }
+    this.length = length;
+    this.selector = selector;
+  }
+  get(index) {
+    return this[index];
+  }
+  each(fn) {
+    for (let i = 0; i < this.length; i++) {
+      const elem = this[i];
+      fn(elem);
+    }
+  }
+  on(type, fn) {
+    return this.each(function (elem) {
+      elem.addEventListener(type, fn, false);
+    });
+  }
+  //还可以扩展很多DOM操作的API
+}
+
+// 插件
+/* jQuery.prototype.dialog = function(info) {
+	alert(info);
+}; */
+//...扩展更多的方法
+
+//“造轮子”
+class MyJQuery extends JQuery {
+  constructor(selector) {
+    super(selector);
+  }
+  //...扩展自己的方法
+  addClass(classname) {
+    // console.log(classname)
+    for (let i = 0; i < this.length; i++) {
+      const elem = this[i];
+      elem.className += ` ${classname}`;
+      // console.log(elem)
+    }
+  }
+  style(data) {}
+}
+
+const $p = new JQuery('p');
+console.log($p);
+console.log($p.get(1));
+
+$p.each((elem) => {
+  console.log(elem.nodeName, elem.innerHTML);
+});
+
+$p.on('click', (e) => {
+  console.log(e.target.innerHTML);
+});
+
+const $p1 = new MyJQuery('p');
+$p1.addClass('p2');
+```
+
+#### 18. 实现字符串 match 方法
+
+```javascript
+// 字符串match方法
+let str = 'zhufengpeixun2019zhufengpeixun2020@2021';
+let reg = /\d+/g;
+console.log(str.match(reg));
+~(function (str) {
+  function execAll(str) {
+    if (!this.global) {
+      return this.exec(str);
+    }
+    let ary = [],
+      res = this.exec(str);
+    while (res) {
+      ary.push(res[0]);
+      res = this.exec(str);
+    }
+    return ary.length === 0 ? null : ary;
+  }
+  RegExp.prototype.execAll = execAll;
+})();
+
+console.log(reg.execAll(str));
+```
+
+#### 19. 获取一个字符串中出现次数最多的字母
+
+```javascript
+// 获取一个字符串中出现次数最多的字母
+
+let str = 'zhufengpeixunzhoulaoshi';
+
+/**
+ * 第一种方法：去重思维
+ */
+// let max = 1,
+//   res = [],
+//   obj = {};
+// [].forEach.call(str, char => {
+//   if (typeof obj[char] !== 'undefined') {
+//     obj[char] += 1;
+//     if (obj[char] > max) {
+//       max = obj[char];
+//     }
+//     return;
+//   }
+//   obj[char] = 1;
+// });
+// res = Object.keys(obj)
+//   .filter(k => obj[k] === max);
+// console.log(`出现次数最多的字母为：${res}，次数为：${max}`);
+
+/**
+ * 第二种方法：排序思维
+ */
+// str = str
+//   .split('')
+//   .sort((a, b) => a.localeCompare(b))
+//   .join('');
+// let reg = /([a-zA-Z])\1+/g;
+// let ary = str.match(reg).sort((a, b) => b.length - a.length);
+
+// let max = ary[0].length;
+// let res = ary
+//   .filter(i => i.length === max)
+//   .map(i => i[0]);
+
+// console.log(`出现次数最多的字母为：${res}，次数为：${max}`);
+
+/**
+ * 第三种方法：动态正则匹配
+ */
+
+// let max = 0,
+//   res = [],
+//   flag = false;
+
+// str = str
+//   .split('')
+//   .sort((a, b) => a.localeCompare(b))
+//   .join('');
+
+// for (let i = str.length; i > 0; i--) {
+//   let reg = new RegExp('([a-zA-Z])\\1{' + (i - 1) + '}', 'g');
+//   str.replace(reg, (content, $1) => {
+//     max = i;
+//     res.push($1);
+//     flag = true;
+//   });
+//   if (flag) {
+//     break;
+//   }
+// }
+// console.log(`出现次数最多的字母为：${res}，次数为：${max}`);
+
+/**
+ * 第四种方法：动态删字母
+ */
+
+let max = 0,
+  count = 0,
+  obj = {},
+  res = [],
+  reg,
+  oldLen,
+  letter,
+  newLen;
+
+while (str !== '') {
+  oldLen = str.length;
+  letter = str.substr(0, 1);
+  reg = new RegExp(letter, 'g');
+  str = str.replace(reg, '');
+  newLen = str.length;
+  count = oldLen - newLen;
+  if (count >= max) {
+    obj[letter] = count;
+    max = count;
+    res.push(letter);
+  }
+}
+
+//由于第一项总会添加进res中，所以要做检验
+if (obj[res[0]] !== max) {
+  res.shift();
+}
+
+console.log(`出现次数最多的字母为：${res}，次数为：${max}`);
+```
+
+#### 20. 时间字符串的格式化处理
+
+```javascript
+~(function () {
+  /**
+   * formatTime: 时间字符串的格式化处理
+   *  @params
+   *    template:[string] 我们最后期望获取日期格式的模版
+   *    模版规则：{0}->年 {1~5}->月日时分秒
+   *  @return
+   *    [string]格式化后的时间字符串
+   * by zhufengpeixun on 2021/01/17
+   */
+  function formatTime(template = '{0}年{1}月{2}日 {3}时{4}分{5}秒') {
+    let timeAry = this.match(/\d+/g);
+    return template.replace(/\{(\d+)\}/g, (...[, $1]) => {
+      let time = timeAry[$1] || '00';
+      time.length < 2 ? (time = '0' + time) : null;
+      return time;
+    });
+  }
+  /*扩展到String。prototype上 */
+  ['formatTime'].forEach((item) => {
+    String.prototype[item] = eval(item);
+  });
+})();
+
+let time = '2019-08-13 15:3:56';
+console.log(time.formatTime()); //=> 2019年08月13日 15时03分56秒
+
+console.log(time.formatTime('{0}年{1}月{2}日')); //=>2019年08月13日
+console.log(time.formatTime('{1}/{2} {3}:{4}:{5}')); //=>08/13 15:03:56秒
+
+time = '2019/08/13';
+console.log(time.formatTime()); //=> 2019年08月13日 00时00分00秒
+
+console.log(time.formatTime('{0}年{1}月{2}日')); //=> 2019年08月13日
+console.log(time.formatTime('{1}/{2} {3}:{4}:{5}')); //=> 08/13 00:00:00
+```
+
+#### 21. 数字以千分符分割
+
+```javascript
+let num = '15628954';
+num = '12345678256874';
+
+/* 1.传统方法 */
+// function millimeter(num) {
+//   num = num
+//     .split('')
+//     .reverse()
+//     .join('');
+//
+//   for (let i = 2; i < num.length - 1; i += 4) {
+//     let prev = num.substring(0, i + 1),
+//       next = num.substring(i + 1);
+//     num = prev + ',' + next;
+//   }
+
+//   num = num
+//     .split('')
+//     .reverse()
+//     .join('');
+//   return num;
+// }
+
+// console.log(millimeter(num)); //=> 12,345,678,256,874
+
+/* 2.正则 */
+~(function () {
+  /**
+   * millimeter: 数字以千分符分割
+   * @param
+   *  num[string] 传入的数字
+   * @return
+   *  num[string] 分割后的数字
+   *
+   * by zhufengpeixun on 2021/01/17
+   */
+  function millimeter() {
+    return this.replace(/\d{1,3}(?=(\d{3})+$)/g, (content) => (content = content + ','));
+  }
+  /*扩展到String。prototype上 */
+  ['millimeter'].forEach((item) => {
+    String.prototype[item] = eval(item);
+  });
+})();
+
+console.log(num.millimeter()); //=> 12,345,678,256,874
+```
+
+#### 22. 手写实现 JQuery 中的 each 方法
+
+```javascript
+function each(arr, callback) {
+  for (let i = 0; i < arr.length; i++) {
+    let flag = callback.call(arr, arr[i], i);
+    if (flag === false) {
+      console.log(arr[i]);
+      break;
+    }
+  }
+}
+```
+
+#### 23. 防抖和节流
+
+````markdown
+### 1.防抖
+
+> 一定时间内，频繁触发某一操作（比如用户输入）无效，防抖会等待规定时间后来触发一次，从而降低频率。
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>防抖</title>
+    <style></style>
+  </head>
+
+  <body>
+    <input type="text" id="input" />
+
+    <!-- <script type="text/javascript" src="./test.js"></script> -->
+  </body>
+</html>
+```
+````
+
+```javascript
+let input1 = document.getElementById('input');
+
+function debounce(fn, delay = 200) {
+  let timer = null;
+  return function () {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      //此处this指向当前被监听的dom节点对象，arguments是事件回调函数里的参数，此处指event对象。（下方节流同理）
+      fn.apply(this, arguments);
+    }, delay);
+  };
+}
+
+//监听dom事件时，事件回调函数里的this指向当前被监听的dom节点对象，参数是event对象。
+input1.addEventListener(
+  'input',
+  debounce(function (e) {
+    console.log(e.target.value);
+  }, 500)
+);
+```
+
+### 2. 节流
+
+> 一定时间内，频繁触发某一操作（比如拖拽），节流会按照每隔固定时间触发一次，从而降低频率。
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>throttle</title>
+    <style>
+      #app {
+        width: 200px;
+        height: 100px;
+        line-height: 100px;
+        border: 1px solid #cccccc;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app" draggable="true">拖拽</div>
+
+    <script type="text/javascript" src="./test.js"></script>
+  </body>
+</html>
+```
+
+```javascript
+let div1 = document.getElementById('app');
+
+//1.时间戳写法，特点：第一次触发会立即执行fn
+/* function throttle(fn, delay = 200) {
+  let last = 0;
+  return function() {
+    let now = Date.now();
+    if (now - last >= delay) {
+      last = now;
+      fn.apply(this, arguments);
+    }
+  };
+} */
+
+//2.定时器写法，特点：最后一次触发，还是要等delay毫秒后才执行
+/* function throttle(fn, delay = 200) {
+  let timer = null;
+  return function() {
+    if (timer) {
+      return;
+    }
+    timer = setTimeout(() => {
+      fn.apply(this, arguments);
+      timer = null;
+    }, delay);
+  };
+} */
+
+//3.完整版本，特点：第一次触发，等delay后才执行，最后一次触发会等remainning后（而不是delay后）执行
+function throttle(fn, delay = 200) {
+  let timer = null;
+  let startTime = Date.now();
+  return function () {
+    let curTime = Date.now();
+    let remainning = delay - (curTime - startTime);
+    const context = this;
+    const args = arguments;
+    timer && clearTimeout(timer);
+    if (remainning <= 0) {
+      fn.apply(context, args);
+    } else {
+      timer = setTimeout(fn, remainning);
+    }
+  };
+}
+
+div1.addEventListener(
+  'drag',
+  throttle(function (e) {
+    console.log(e.offsetX, e.offsetY);
+  }, 500)
+);
+```
+
+```
+
 ```
