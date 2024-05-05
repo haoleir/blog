@@ -1,3 +1,6 @@
+### 手写 commonJs 规范
+
+```node
 const path = require('path');
 const fs = require('fs');
 const vm = require('vm');
@@ -25,7 +28,7 @@ Module.extensions = {
 
 //给你一个相对路径 解析成绝对路径
 
-Module.resolveFileName = function(fileName) {
+Module.resolveFileName = function (fileName) {
   let absPath = path.resolve(__dirname, fileName); //绝对路径
   let flag = fs.existsSync(absPath);
   let current = absPath;
@@ -47,7 +50,7 @@ Module.resolveFileName = function(fileName) {
   return current;
 };
 
-Module.prototype.load = function() {
+Module.prototype.load = function () {
   //模块加载就是读取文件内容
   let ext = path.extname(this.id); //取扩展名
   Module.extensions[ext](this);
@@ -74,7 +77,7 @@ const json = req('./index');
 console.log(json);
 
 /**
- * 
+ *
  * 1.手写commonJs规范
  * 1.解析出绝对路径current；
  * 2.判断有没有缓存 Module._cache
@@ -84,14 +87,14 @@ console.log(json);
  *    2. js文件，将文件内容读出来放入到一个匿名函数中，执行匿名函数并将结果赋值给module.exports返回（核心思想就是创建一个空对象，给用户填内容，用户填完内容后返回）
  */
 
- /**
-  * 2.node内置有三种模块：
-  *   1.文件模块（如果存在同名，先读文件，再读文件夹）
-  *   2.第三方模块（从当前所在文件夹里。一层一层往上查找node_modules文件夹里，有没指定的文件夹，直到项目根目录找不到，返回报错为止。在package.json里main字段指定文件读取的主入口，如果没有指定，默认入口是index.js；）；
-  *   3.内置模块（直接引用）
-  */
+/**
+ * 2.node内置有三种模块：
+ *   1.文件模块（如果存在同名，先读文件，再读文件夹）
+ *   2.第三方模块（从当前所在文件夹里。一层一层往上查找node_modules文件夹里，有没指定的文件夹，直到项目根目录找不到，返回报错为止。在package.json里main字段指定文件读取的主入口，如果没有指定，默认入口是index.js；）；
+ *   3.内置模块（直接引用）
+ */
 
-  /**
+/**
    * exports / module.exports 都是用来暴露模块，两个有什么不同？
       在node中，每个js文件都有 module.exports这个对象，为了方便，相当于在模块头部加了这句话： var exports = module.exports；
       不同之处：
@@ -102,3 +105,4 @@ console.log(json);
       什么时候用exports，什么时候用module.exports？
       构造函数的情况可以使用module.exports
    */
+```

@@ -157,7 +157,7 @@ console.log((5).add(3).minus(2));
     > 8. 发起一个 pullrequest
     > 9. 由源仓库作者合并 pullrequest
 
-#### 13.
+#### 13. [观察者模式和发布订阅模式的区别](https://www.jianshu.com/p/594f018b68e7)
 
 #### 14. [flexbox 弹性盒布局和布局原理](https://blog.csdn.net/lihongxun945/article/details/45458717/)
 
@@ -174,5 +174,3 @@ console.log((5).add(3).minus(2));
     \- 当 script 有 async 属性时，脚本的加载过程和文档加载也是异步发生的。但脚本下载完成后会停止 HTML 解析，执行脚本，脚本解析完继续 HTML 解析。
 
     \- 当 script 同时有 async 和 defer 属性时，执行效果和 async 一致。
-
-#### 17. [观察者模式和发布订阅模式的区别](https://www.jianshu.com/p/594f018b68e7)
