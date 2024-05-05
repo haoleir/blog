@@ -1,4 +1,4 @@
-1. Js创建10个 <a> 标签，点击弹出相应的序号
+####1. Js 创建 10 个 <a> 标签，点击弹出相应的序号
 
 ```javascript
 //创建文档片段 ，一次性插入dom节点提高性能
@@ -8,7 +8,7 @@ var fraNode = document.createDocumentFragment();
 for (let i = 0; i < 10; i++) {
   var aNode = document.createElement('a');
   aNode.innerHTML = i;
-  aNode.style.cssText = "display:block;margin-bottom:10px;background-color:#ccc;";
+  aNode.style.cssText = 'display:block;margin-bottom:10px;background-color:#ccc;';
   fraNode.appendChild(aNode);
 }
 
@@ -18,7 +18,7 @@ divNode.appendChild(fra);
 document.body.appendChild(divNode);
 
 //事件代理
-divNode.onclick = function(e) {
+divNode.onclick = function (e) {
   var tar = e.target;
   console.dir(e);
   if (tar.nodeName === 'A') {
@@ -27,12 +27,11 @@ divNode.onclick = function(e) {
 };
 ```
 
-2. 宏任务和微任务的区别？
+####2. 宏任务和微任务的区别？
 
-> 1. 微任务是在DOM渲染前执行；宏任务是在DOM渲染完成后执行。
+> 1. 微任务是在 DOM 渲染前执行；宏任务是在 DOM 渲染完成后执行。
 
 ![image-20210228121858547](https://cdn.jsdelivr.net/gh/haoleir/file@master/images/image-20210228121858547-2021%2002%2028%2012%2018%20.png)
-
 
 ```html
 <!DOCTYPE html>
@@ -46,10 +45,7 @@ divNode.onclick = function(e) {
   <body>
     <div id="app"></div>
     <script>
-      $('#app')
-        .append('<p>Hello world!</p>')
-        .append('<p>Hello world!</p>')
-        .append('<p>Hello world!</p>');
+      $('#app').append('<p>Hello world!</p>').append('<p>Hello world!</p>').append('<p>Hello world!</p>');
       // console.log('length', $('#app').children().length);
       // alert('本次 call stack 结束，DOM结构已更新，但是未触发渲染');
 
@@ -67,7 +63,7 @@ divNode.onclick = function(e) {
 </html>
 ```
 
-3. 手写 Promise 的 all 方法
+####3. 手写 Promise 的 all 方法
 
 ```javascript
 function PromiseAll(promiseArr) {
@@ -80,14 +76,14 @@ function PromiseAll(promiseArr) {
     let counter = 0;
     for (let i = 0; i < promiseNum; i++) {
       Promise.resolve(promiseArr[i])
-        .then(val => {
+        .then((val) => {
           counter++;
           res[i] = val;
           if (counter === promiseNum) {
             resolve(res);
           }
         })
-        .catch(e => reject(e));
+        .catch((e) => reject(e));
     }
   });
 }
@@ -110,15 +106,15 @@ const pro3 = new Promise((res, reject) => {
 });
 
 const proAll = PromiseAll([pro1, pro2, pro3])
-  .then(res => {
+  .then((res) => {
     console.log(res);
   })
-  .catch(e => {
+  .catch((e) => {
     console.log(e);
   });
 ```
 
-4. 请你分析一下，promise，generator，async 三者之间的关系？
+####4. 请你分析一下，promise，generator，async 三者之间的关系？
 
 ```javascript
 /*
@@ -194,7 +190,7 @@ let asyncFn = async function() {
 asyncFn();
 ```
 
-5. 怎么用promise封装原生ajax请求？
+####5. 怎么用 promise 封装原生 ajax 请求？
 
 ```javascript
 const queryUrl = 'https://www.baidu.com/sugrec?from=pc_web&wd=' + '平安';
@@ -203,7 +199,7 @@ const queryUrl = 'https://www.baidu.com/sugrec?from=pc_web&wd=' + '平安';
 function ajax(url, success, fail) {
   var client = new XMLHttpRequest();
   client.open('GET', url);
-  client.onreadystatechange = function() {
+  client.onreadystatechange = function () {
     if (this.readyState !== 4) {
       return;
     }
@@ -218,10 +214,10 @@ function ajax(url, success, fail) {
 
 ajax(
   queryUrl,
-  function(data) {
+  function (data) {
     console.log(data);
   },
-  function(err) {
+  function (err) {
     console.log(err);
   }
 );
@@ -231,7 +227,7 @@ function promiseAjax(url) {
   return new Promise((resolve, reject) => {
     var client = new XMLHttpRequest();
     client.open('GET', url);
-    client.onreadystatechange = function() {
+    client.onreadystatechange = function () {
       if (this.readyState !== 4) {
         return;
       }
@@ -246,15 +242,15 @@ function promiseAjax(url) {
 }
 
 promiseAjax(queryUrl)
-  .catch(function(err) {
+  .catch(function (err) {
     console.log(err);
   })
-  .then(function(data) {
+  .then(function (data) {
     console.log(data);
   });
 ```
 
-6. 如何实现Promise 并行或者串行执行？
+####6. 如何实现 Promise 并行或者串行执行？
 
 ```javascript
 function sleep(time = 1) {
@@ -270,7 +266,7 @@ const promiseCreatorList = [sleep, sleep, sleep];
 
 // 1.promise.all (promise并行执行)
 console.log('promise.all start', new Date().getTime());
-Promise.all(promiseCreatorList.map(item => item())).then(() => {
+Promise.all(promiseCreatorList.map((item) => item())).then(() => {
   console.log('promise.all end', new Date().getTime());
 });
 
@@ -293,3 +289,29 @@ const promiseChain = promiseCreatorList.reduce((mem, cur, index, arr) => {
 }, Promise.resolve());
 ```
 
+####7.数组扁平化方法 flatten
+
+```javascript
+/**
+ *
+ * @param {*} array 需要展平的数组
+ * @param {*} depth 展平的深度
+ * @param {*} result 结果数组
+ * @returns
+ */
+function flatten(array, depth = 0, result = []) {
+  array.forEach((element) => {
+    if (Array.isArray(element) && depth > 0) {
+      flatten(element, depth - 1, result);
+    } else {
+      result.push(element);
+    }
+  });
+  return result;
+}
+
+const array = [1, [2, [3, [4]], 5]];
+const flattenedArray = flatten(array, 1); // 扁平化深度为1
+
+console.log(flattenedArray);
+```
