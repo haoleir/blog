@@ -289,10 +289,62 @@ const promiseChain = promiseCreatorList.reduce((mem, cur, index, arr) => {
 }, Promise.resolve());
 ```
 
-#### 7.
+#### 7. 手写一个 LazyMan，实现 sleep 机制
 
 ```javascript
+/**
+ * 编写函数，要求打印如下内容：
+ */
+// 双越 eat 苹果
+// 双越 eat 香蕉
+// 双越 开始睡觉
+// 双越 已经睡完了 5 s，开始执行下一个任务（等待 5s 后打印）
+// 双越 eat 葡萄
+// 双越 eat 西瓜
+// 双越 开始睡觉
+// 双越 已经睡完了 2 s，开始执行下一个任务（等待 2s 后打印）
+// 双越 eat 橘子
 
+const me = new LazyMan('双越');
+
+me.eat('苹果').eat('香蕉').sleep(5).eat('葡萄').eat('西瓜').sleep(2).eat('橘子');
+
+class LazyMan {
+  constructor(name) {
+    this.name = name;
+    this.tasks = [];
+    setTimeout(() => {
+      this.next();
+    });
+  }
+
+  //next
+  next() {
+    let task = this.tasks.shift();
+    task && task();
+  }
+  //eat
+  eat(food) {
+    let task = () => {
+      console.log(`${this.name} eat ${food}`);
+      this.next();
+    };
+    this.tasks.push(task);
+    return this;
+  }
+  //sleep
+  sleep(time) {
+    let task = () => {
+      console.log(`${this.name} 开始睡觉`);
+      setTimeout(() => {
+        console.log(`${this.name} 已经睡完了 ${time} s，开始执行下一个任务`);
+        this.next();
+      }, time * 1000);
+    };
+    this.tasks.push(task);
+    return this;
+  }
+}
 ```
 
 #### 8. new 操作符实现原理
@@ -449,7 +501,7 @@ const myCreate = function (obj) {
 };
 ```
 
-#### 15.
+#### 15. 手写一个 curry 函数，把其他函数柯里化
 
 ```javascript
 
