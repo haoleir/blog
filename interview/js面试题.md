@@ -289,31 +289,10 @@ const promiseChain = promiseCreatorList.reduce((mem, cur, index, arr) => {
 }, Promise.resolve());
 ```
 
-#### 7. 数组扁平化方法 flatten
+#### 7.
 
 ```javascript
-/**
- *
- * @param {*} array 需要展平的数组
- * @param {*} depth 展平的深度
- * @param {*} result 结果数组
- * @returns
- */
-function flatten(array, depth = 0, result = []) {
-  array.forEach((element) => {
-    if (Array.isArray(element) && depth > 0) {
-      flatten(element, depth - 1, result);
-    } else {
-      result.push(element);
-    }
-  });
-  return result;
-}
 
-const array = [1, [2, [3, [4]], 5]];
-const flattenedArray = flatten(array, 1); // 扁平化深度为1
-
-console.log(flattenedArray);
 ```
 
 #### 8. new 操作符实现原理
@@ -470,135 +449,10 @@ const myCreate = function (obj) {
 };
 ```
 
-#### 15. 深拷贝 deepClone.js
+#### 15.
 
 ```javascript
-// 简易版.js
-/* function deepClone(obj) {
-	if (typeof obj !== 'object' || obj == null) {
-		return obj;
-	}
-	const target = Array.isArray(obj) ? [] : {};
-	for (const key in obj) {
-		if (obj.hasOwnProperty(key)) {
-      target[key] = deepClone(obj[key]);
-		}
-	}
-  return target;
-} */
 
-// 测试
-// const simple = {
-// 	s: '',
-// 	sym: Symbol(),
-// 	obj: {
-// 		bool: false,
-// 		n: null
-// 	},
-// 	array: [
-// 		{
-// 			nan: NaN,
-// 			i: Infinity,
-// 			sym: Symbol()
-// 		},
-// 		123
-// 	]
-// };
-// let a1 = deepClone(simple);
-// console.log(simple);
-// console.log(a1);
-
-// 完整版
-function deepClone(target, cache = new Map()) {
-  if (cache.get(target)) {
-    return cache.get(target);
-  }
-  if (target instanceof Object) {
-    let dist;
-    if (target instanceof Array) {
-      dist = [];
-    } else if (target instanceof Function) {
-      const fn = function () {
-        return target.call(this, ...arguments);
-      };
-      fn.name = target.name;
-      dist = fn;
-    } else if (target instanceof RegExp) {
-      dist = new RegExp(target.source, target.flags);
-    } else if (target instanceof Date) {
-      dist = new Date(target);
-    } else {
-      dist = {};
-    }
-    cache.set(target, dist);
-
-    for (const key in target) {
-      if (target.hasOwnProperty(key)) {
-        dist[key] = deepClone(target[key], cache);
-      }
-    }
-    return dist;
-  } else {
-    return target;
-  }
-}
-
-// const a = {
-// 	i: Infinity,
-// 	s: '',
-// 	bool: false,
-// 	n: null,
-// 	u: undefined,
-// 	sym: Symbol(),
-// 	obj: {
-// 		i: Infinity,
-// 		s: '',
-// 		bool: false,
-// 		n: null,
-// 		u: undefined,
-// 		sym: Symbol()
-// 	},
-// 	array: [
-// 		{
-// 			nan: NaN,
-// 			i: Infinity,
-// 			s: '',
-// 			bool: false,
-// 			n: null,
-// 			u: undefined,
-// 			sym: Symbol()
-// 		},
-// 		123
-// 	],
-// 	fn: function() {
-// 		return 'fn';
-// 	},
-// 	date: new Date(),
-// 	re: /hi\d/gi
-// };
-// let a2 = deepClone(a);
-// console.log(a);
-// console.log(a2);
-// console.log(a2 !== a);
-// console.log(a2.i === a.i);
-// console.log(a2.s === a.s);
-// console.log(a2.bool === a.bool);
-// console.log(a2.n === a.n);
-// console.log(a2.u === a.u);
-// console.log(a2.sym === a.sym);
-// console.log(a2.obj !== a.obj);
-// console.log(a2.array !== a.array);
-// console.log(a2.array[0] !== a.array[0]);
-// console.log(a2.array[0].i === a.array[0].i);
-// console.log(a2.array[0].s === a.array[0].s);
-// console.log(a2.array[0].bool === a.array[0].bool);
-// console.log(a2.array[0].n === a.array[0].n);
-// console.log(a2.array[0].u === a.array[0].u);
-// console.log(a2.array[0].sym === a.array[0].sym);
-// console.log(a2.array[1] === a.array[1]);
-// console.log(a2.fn !== a.fn);
-// console.log(a2.date !== a.date);
-// console.log(a2.re !== a.re);
 ```
 
 #### 16. 发布订阅模式
@@ -771,109 +625,10 @@ console.log(str.match(reg));
 console.log(reg.execAll(str));
 ```
 
-#### 19. 获取一个字符串中出现次数最多的字母
+#### 19.
 
 ```javascript
-// 获取一个字符串中出现次数最多的字母
 
-let str = 'zhufengpeixunzhoulaoshi';
-
-/**
- * 第一种方法：去重思维
- */
-// let max = 1,
-//   res = [],
-//   obj = {};
-// [].forEach.call(str, char => {
-//   if (typeof obj[char] !== 'undefined') {
-//     obj[char] += 1;
-//     if (obj[char] > max) {
-//       max = obj[char];
-//     }
-//     return;
-//   }
-//   obj[char] = 1;
-// });
-// res = Object.keys(obj)
-//   .filter(k => obj[k] === max);
-// console.log(`出现次数最多的字母为：${res}，次数为：${max}`);
-
-/**
- * 第二种方法：排序思维
- */
-// str = str
-//   .split('')
-//   .sort((a, b) => a.localeCompare(b))
-//   .join('');
-// let reg = /([a-zA-Z])\1+/g;
-// let ary = str.match(reg).sort((a, b) => b.length - a.length);
-
-// let max = ary[0].length;
-// let res = ary
-//   .filter(i => i.length === max)
-//   .map(i => i[0]);
-
-// console.log(`出现次数最多的字母为：${res}，次数为：${max}`);
-
-/**
- * 第三种方法：动态正则匹配
- */
-
-// let max = 0,
-//   res = [],
-//   flag = false;
-
-// str = str
-//   .split('')
-//   .sort((a, b) => a.localeCompare(b))
-//   .join('');
-
-// for (let i = str.length; i > 0; i--) {
-//   let reg = new RegExp('([a-zA-Z])\\1{' + (i - 1) + '}', 'g');
-//   str.replace(reg, (content, $1) => {
-//     max = i;
-//     res.push($1);
-//     flag = true;
-//   });
-//   if (flag) {
-//     break;
-//   }
-// }
-// console.log(`出现次数最多的字母为：${res}，次数为：${max}`);
-
-/**
- * 第四种方法：动态删字母
- */
-
-let max = 0,
-  count = 0,
-  obj = {},
-  res = [],
-  reg,
-  oldLen,
-  letter,
-  newLen;
-
-while (str !== '') {
-  oldLen = str.length;
-  letter = str.substr(0, 1);
-  reg = new RegExp(letter, 'g');
-  str = str.replace(reg, '');
-  newLen = str.length;
-  count = oldLen - newLen;
-  if (count >= max) {
-    obj[letter] = count;
-    max = count;
-    res.push(letter);
-  }
-}
-
-//由于第一项总会添加进res中，所以要做检验
-if (obj[res[0]] !== max) {
-  res.shift();
-}
-
-console.log(`出现次数最多的字母为：${res}，次数为：${max}`);
 ```
 
 #### 20. 时间字符串的格式化处理
@@ -916,55 +671,10 @@ console.log(time.formatTime('{0}年{1}月{2}日')); //=> 2019年08月13日
 console.log(time.formatTime('{1}/{2} {3}:{4}:{5}')); //=> 08/13 00:00:00
 ```
 
-#### 21. 数字以千分符分割
+#### 21.
 
 ```javascript
-let num = '15628954';
-num = '12345678256874';
 
-/* 1.传统方法 */
-// function millimeter(num) {
-//   num = num
-//     .split('')
-//     .reverse()
-//     .join('');
-//
-//   for (let i = 2; i < num.length - 1; i += 4) {
-//     let prev = num.substring(0, i + 1),
-//       next = num.substring(i + 1);
-//     num = prev + ',' + next;
-//   }
-
-//   num = num
-//     .split('')
-//     .reverse()
-//     .join('');
-//   return num;
-// }
-
-// console.log(millimeter(num)); //=> 12,345,678,256,874
-
-/* 2.正则 */
-~(function () {
-  /**
-   * millimeter: 数字以千分符分割
-   * @param
-   *  num[string] 传入的数字
-   * @return
-   *  num[string] 分割后的数字
-   *
-   * by zhufengpeixun on 2021/01/17
-   */
-  function millimeter() {
-    return this.replace(/\d{1,3}(?=(\d{3})+$)/g, (content) => (content = content + ','));
-  }
-  /*扩展到String。prototype上 */
-  ['millimeter'].forEach((item) => {
-    String.prototype[item] = eval(item);
-  });
-})();
-
-console.log(num.millimeter()); //=> 12,345,678,256,874
 ```
 
 #### 22. 手写实现 JQuery 中的 each 方法
