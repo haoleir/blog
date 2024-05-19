@@ -504,7 +504,28 @@ const myCreate = function (obj) {
 #### 15. 手写一个 curry 函数，把其他函数柯里化
 
 ```javascript
+function curry(fn) {
+  const fnArgsLength = fn.length; //传入函数的参数长度
+  let args = [];
+  return function calc(...newArgs) {
+    args = [...args, ...newArgs]; //积累参数
+    if (args.length < fnArgsLength) {
+      // 参数不够，返回函数
+      return calc;
+    } else {
+      // 参数够了，执行原函数并返回执行结果
+      return fn.apply(this, args);
+    }
+  };
+}
 
+function sum(a, b, c) {
+  return a + b + c;
+}
+
+const currySum = curry(sum);
+const res = currySum(10)(20)(30);
+console.log(res);
 ```
 
 #### 16. 发布订阅模式
