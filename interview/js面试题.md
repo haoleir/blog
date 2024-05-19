@@ -404,7 +404,18 @@ console.log(fn3.name); //hty3
  
  *instanceof 主要的实现原理就是只要右边变量的 prototype 在左边变量的原型链上即可。因此，instanceof 在查找的过程中会遍历左边变量的原型链，直到找到右边变量的 prototype，如果查找失败，则会返回 false。
  */
-var MyInstanceof = function (left, right) {
+var myInstanceof = function (left, right) {
+  // left 为 null 或 undefined
+  if (left == null) {
+    return false;
+  }
+
+  // left 为 值类型
+  const type = typeof left;
+  if (type !== 'object' || type !== 'function') {
+    return false;
+  }
+
   const rightVal = right.prototype;
   const leftVal = left.__proto__;
   // 若找不到就到一直循环到父类型或祖类型
