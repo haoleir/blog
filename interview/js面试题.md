@@ -444,41 +444,67 @@ typeof null 为"object", 原因是因为 不同的对象在底层都表示为二
 #### 11. call 实现原理
 
 ```javascript
-Function.prototype.myCall = function (context) {
+Function.prototype.myCall = function (context, ...args) {
   if (typeof this !== 'function') {
     throw new TypeError('Error');
   }
-  context = [null, undefined].includes(context) ? window : Object(context);
-  context.fn = this;
-  let args = [];
-  for (let i = 1; i < arguments.length; i++) {
-    args.push('arguments[' + i + ']');
+
+  //如果为 null 或 undefined，上下文赋值为全局对象
+  if (context == null) {
+    context = globalThis;
+  }
+  // 值类型，转变为对象
+  if (typeof context !== 'object') {
+    context = Object(context);
   }
 
-  let result = eval('context.fn(' + args + ')');
-  delete context.fn;
-  return result;
+  const fnKey = Symbol();
+  context[fnKey] = this;
+  const res = context[fnKey](...args);
+
+  delete context[fnKey];
+
+  return res;
 };
+
+function fn(a, b, c) {
+  console.log(this, a, b, c);
+}
+
+fn.myCall({ x: 100 }, 10, 20, 30);
 ```
 
 #### 12. Apply 实现原理
 
 ```javascript
-Function.prototype.myApply = function (context) {
+Function.prototype.myApply = function (context, args = []) {
   if (typeof this !== 'function') {
     throw new TypeError('Error');
   }
-  context = [null, undefined].includes(context) ? window : Object(context);
-  context.fn = this;
-  let result;
-  if (arguments[1]) {
-    result = context.fn(...arguments[1]);
-  } else {
-    result = context.fn();
+
+  //如果为 null 或 undefined，上下文赋值为全局对象
+  if (context == null) {
+    context = globalThis;
   }
-  delete context.fn;
-  return result;
+  // 值类型，转变为对象
+  if (typeof context !== 'object') {
+    context = Object(context);
+  }
+
+  const fnKey = Symbol();
+  context[fnKey] = this;
+  const res = context[fnKey](...args);
+
+  delete context[fnKey];
+
+  return res;
 };
+
+function fn(a, b, c) {
+  console.log(this, a, b, c);
+}
+
+const fn1 = fn.myApply({ x: 200 }, [10, 20, 30]);
 ```
 
 #### 13. bind 实现原理
