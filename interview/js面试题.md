@@ -484,22 +484,20 @@ Function.prototype.myApply = function (context) {
 #### 13. bind 实现原理
 
 ```javascript
-Function.prototype.myBind = function (context) {
-  if (typeof this !== 'function') {
-    throw new TypeError('Error');
-  }
-  const that = this;
-  const bindArgs = Array.prototype.slice.call(arguments, 1);
-  function Fn() {}
-  function fBound() {
-    let args = Array.prototype.slice.call(arguments);
-    //因为返回了一个函数，可以new Fn(),所以需要判断
-    return that.apply(this instanceof Fn ? this : context, bindArgs.concat(args));
-  }
-  Fn.prototype = that.prototype;
-  fBound.prototype = new Fn();
-  return fBound;
+Function.prototype.myBind = function (context, ...bindArgs) {
+  const self = this;
+  return function (...newArgs) {
+    const args = bindArgs.concat(newArgs);
+    return self.apply(context, args);
+  };
 };
+
+function fn(a, b, c) {
+  console.log(this, a, b, c);
+}
+
+const fn1 = fn.myBind({ x: 100 }, 10, 20);
+fn1(30);
 ```
 
 #### 14. Object.create 实现原理
