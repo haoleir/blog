@@ -431,7 +431,9 @@ var myInstanceof = function (left, right) {
 };
 ```
 
-#### 10. `typeof`原理： **不同的对象在底层都表示为二进制，在 Javascript 中二进制前（低）三位存储其类型信息**。
+#### 10. `typeof`原理
+
+> 不同的对象在底层都表示为二进制，在 Javascript 中二进制前（低）三位存储其类型信息。
 
 - 000: 对象
 - 010: 浮点数
@@ -733,10 +735,74 @@ console.log(str.match(reg));
 console.log(reg.execAll(str));
 ```
 
-#### 19.
+#### 19. 手写自定义事件 EventBus
 
 ```javascript
+class EventBus {
+  constructor() {
+    /**
+     * {
+     *  'key1':[
+     *    { fn: fn1, isOnce: false },
+     *    { fn: fn2, isOnce: true },
+     *   ],
+     *  'key2':[],
+     *  'key3':[]
+     * }
+     */
 
+    this.events = {};
+  }
+  on(key, fn, isOnce = false) {
+    if (this.events[key] == null) {
+      this.events[key] = [];
+    }
+    this.events[key].push({ fn: fn, isOnce });
+  }
+  once(key, fn) {
+    this.on(key, fn, true);
+  }
+  off(key, fn) {
+    if (!fn) {
+      this.events[key] = [];
+    } else {
+      // 解绑单个fn
+      this.events[key] = this.events[key].filter((item) => item.fn !== fn);
+    }
+  }
+  emit(key, ...args) {
+    if (this.events[key] == null) return;
+
+    this.events[key] = this.events[key].filter((item) => {
+      const { fn, isOnce } = item;
+      fn(...args);
+
+      return !isOnce;
+    });
+  }
+}
+
+const e = new EventBus();
+
+function fn1(a, b) {
+  console.log('fn1', a, b);
+}
+function fn2(a, b) {
+  console.log('fn2', a, b);
+}
+function fn3(a, b) {
+  console.log('fn3', a, b);
+}
+
+e.on('key1', fn1);
+e.on('key1', fn2);
+e.once('key1', fn3);
+e.once('xxxxxx', fn3);
+
+e.emit('key1', 10, 20);
+
+e.off('key1', fn1);
+e.emit('key1', 100, 200);
 ```
 
 #### 20. 时间字符串的格式化处理
@@ -799,10 +865,7 @@ function each(arr, callback) {
 }
 ```
 
-#### 23. 防抖和节流
-
-````markdown
-### 1.防抖
+#### 23. 防抖
 
 > 一定时间内，频繁触发某一操作（比如用户输入）无效，防抖会等待规定时间后来触发一次，从而降低频率。
 
@@ -823,38 +886,35 @@ function each(arr, callback) {
   <body>
     <input type="text" id="input" />
 
-    <!-- <script type="text/javascript" src="./test.js"></script> -->
+    <script type="text/javascript">
+      let input1 = document.getElementById('input');
+
+      function debounce(fn, delay = 200) {
+        let timer = null;
+        return function () {
+          if (timer) {
+            clearTimeout(timer);
+          }
+          timer = setTimeout(() => {
+            //此处this指向当前被监听的dom节点对象，arguments是事件回调函数里的参数，此处指event对象。（下方节流同理）
+            fn.apply(this, arguments);
+          }, delay);
+        };
+      }
+
+      //监听dom事件时，事件回调函数里的this指向当前被监听的dom节点对象，参数是event对象。
+      input1.addEventListener(
+        'input',
+        debounce(function (e) {
+          console.log(e.target.value);
+        }, 500)
+      );
+    </script>
   </body>
 </html>
 ```
-````
 
-```javascript
-let input1 = document.getElementById('input');
-
-function debounce(fn, delay = 200) {
-  let timer = null;
-  return function () {
-    if (timer) {
-      clearTimeout(timer);
-    }
-    timer = setTimeout(() => {
-      //此处this指向当前被监听的dom节点对象，arguments是事件回调函数里的参数，此处指event对象。（下方节流同理）
-      fn.apply(this, arguments);
-    }, delay);
-  };
-}
-
-//监听dom事件时，事件回调函数里的this指向当前被监听的dom节点对象，参数是event对象。
-input1.addEventListener(
-  'input',
-  debounce(function (e) {
-    console.log(e.target.value);
-  }, 500)
-);
-```
-
-### 2. 节流
+#### 24. 节流
 
 > 一定时间内，频繁触发某一操作（比如拖拽），节流会按照每隔固定时间触发一次，从而降低频率。
 
@@ -883,66 +943,60 @@ input1.addEventListener(
   <body>
     <div id="app" draggable="true">拖拽</div>
 
-    <script type="text/javascript" src="./test.js"></script>
+    <script type="text/javascript" src="./test.js">
+            let div1 = document.getElementById('app');
+
+      //1.时间戳写法，特点：第一次触发会立即执行fn
+      /* function throttle(fn, delay = 200) {
+        let last = 0;
+        return function() {
+          let now = Date.now();
+          if (now - last >= delay) {
+            last = now;
+            fn.apply(this, arguments);
+          }
+        };
+      } */
+
+      //2.定时器写法，特点：最后一次触发，还是要等delay毫秒后才执行
+      /* function throttle(fn, delay = 200) {
+        let timer = null;
+        return function() {
+          if (timer) {
+            return;
+          }
+          timer = setTimeout(() => {
+            fn.apply(this, arguments);
+            timer = null;
+          }, delay);
+        };
+      } */
+
+      //3.完整版本，特点：第一次触发，等delay后才执行，最后一次触发会等remainning后（而不是delay后）执行
+      function throttle(fn, delay = 200) {
+        let timer = null;
+        let startTime = Date.now();
+        return function () {
+          let curTime = Date.now();
+          let remainning = delay - (curTime - startTime);
+          const context = this;
+          const args = arguments;
+          timer && clearTimeout(timer);
+          if (remainning <= 0) {
+            fn.apply(context, args);
+          } else {
+            timer = setTimeout(fn, remainning);
+          }
+        };
+      }
+
+      div1.addEventListener(
+        'drag',
+        throttle(function (e) {
+          console.log(e.offsetX, e.offsetY);
+        }, 500)
+      );
+    </script>
   </body>
 </html>
-```
-
-```javascript
-let div1 = document.getElementById('app');
-
-//1.时间戳写法，特点：第一次触发会立即执行fn
-/* function throttle(fn, delay = 200) {
-  let last = 0;
-  return function() {
-    let now = Date.now();
-    if (now - last >= delay) {
-      last = now;
-      fn.apply(this, arguments);
-    }
-  };
-} */
-
-//2.定时器写法，特点：最后一次触发，还是要等delay毫秒后才执行
-/* function throttle(fn, delay = 200) {
-  let timer = null;
-  return function() {
-    if (timer) {
-      return;
-    }
-    timer = setTimeout(() => {
-      fn.apply(this, arguments);
-      timer = null;
-    }, delay);
-  };
-} */
-
-//3.完整版本，特点：第一次触发，等delay后才执行，最后一次触发会等remainning后（而不是delay后）执行
-function throttle(fn, delay = 200) {
-  let timer = null;
-  let startTime = Date.now();
-  return function () {
-    let curTime = Date.now();
-    let remainning = delay - (curTime - startTime);
-    const context = this;
-    const args = arguments;
-    timer && clearTimeout(timer);
-    if (remainning <= 0) {
-      fn.apply(context, args);
-    } else {
-      timer = setTimeout(fn, remainning);
-    }
-  };
-}
-
-div1.addEventListener(
-  'drag',
-  throttle(function (e) {
-    console.log(e.offsetX, e.offsetY);
-  }, 500)
-);
-```
-
-```
-
 ```
