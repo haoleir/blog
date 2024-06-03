@@ -845,10 +845,46 @@ console.log(time.formatTime('{0}年{1}月{2}日')); //=> 2019年08月13日
 console.log(time.formatTime('{1}/{2} {3}:{4}:{5}')); //=> 08/13 00:00:00
 ```
 
-#### 21.
+#### 21.手写 LRU 缓存
 
 ```javascript
+class LRUCache {
+  constructor(length) {
+    if (length < 1) {
+      throw new Error('invalid length');
+    }
+    this.map = new Map();
+    this.length = length;
+  }
+  set(key, value) {
+    this.map.set(key, value);
+    if (this.map.size > this.length) {
+      const delKey = this.map.keys().next().value;
+      this.map.delete(delKey);
+    }
+  }
+  get(key) {
+    const res = this.map.get(key);
+    if (this.map.has(key)) {
+      this.map.delete(key);
+      this.map.set(key, res);
+    }
+    console.log(this, res);
+    return res;
+  }
+}
 
+const lru = new LRUCache(2);
+
+lru.set(1, 1);
+lru.set(2, 2);
+lru.get(1);
+lru.set(3, 3);
+lru.get(2);
+lru.set(4, 4);
+lru.get(1);
+lru.get(3);
+lru.get(4);
 ```
 
 #### 22. 手写实现 JQuery 中的 each 方法
